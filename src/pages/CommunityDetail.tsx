@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -30,28 +29,36 @@ const CommunityDetail = () => {
   const posts = [
     {
       id: 1,
-      author: "Raj Kumar",
-      avatar: "/placeholder.svg",
-      time: "2 hours ago",
+      author: {
+        name: "Raj Kumar",
+        avatar: "/placeholder.svg",
+        isOfficial: false
+      },
+      timestamp: "2 hours ago",
       content: "New vegetable market opened near the temple with fresh produce daily. Great prices and quality!",
       image: "/placeholder.svg",
       category: "news",
       likes: 12,
       comments: 5,
       shares: 2,
-      location: "Thanjavur Central"
+      location: "Thanjavur Central",
+      isLiked: false
     },
     {
       id: 2,
-      author: "Priya Sharma",
-      avatar: "/placeholder.svg",
-      time: "5 hours ago",
+      author: {
+        name: "Priya Sharma",
+        avatar: "/placeholder.svg",
+        isOfficial: false
+      },
+      timestamp: "5 hours ago",
       content: "Community clean-up drive this Saturday at 7 AM. Let's make our neighborhood beautiful together! 🌟",
       category: "event",
       likes: 24,
       comments: 8,
       shares: 4,
-      location: "Thanjavur Central"
+      location: "Thanjavur Central",
+      isLiked: false
     }
   ];
 
