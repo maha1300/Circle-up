@@ -8,25 +8,25 @@
 @layer base {
   :root {
     --background: 248 250 252;
-    --foreground: 30 41 59;
+    --foreground: 15 23 42;
 
     --card: 255 255 255;
-    --card-foreground: 30 41 59;
+    --card-foreground: 15 23 42;
 
     --popover: 255 255 255;
-    --popover-foreground: 30 41 59;
+    --popover-foreground: 15 23 42;
 
     --primary: 59 130 246;
-    --primary-foreground: 248 250 252;
+    --primary-foreground: 255 255 255;
 
-    --secondary: 241 245 249;
-    --secondary-foreground: 30 41 59;
+    --secondary: 248 250 252;
+    --secondary-foreground: 51 65 85;
 
     --muted: 241 245 249;
     --muted-foreground: 100 116 139;
 
-    --accent: 241 245 249;
-    --accent-foreground: 30 41 59;
+    --accent: 236 254 255;
+    --accent-foreground: 8 51 68;
 
     --destructive: 239 68 68;
     --destructive-foreground: 248 250 252;
@@ -36,6 +36,13 @@
     --ring: 59 130 246;
 
     --radius: 0.75rem;
+    
+    /* New gradient variables */
+    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --gradient-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --gradient-warning: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    --gradient-danger: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
   }
 
   .dark {
@@ -76,6 +83,15 @@
 
   body {
     @apply bg-background text-foreground font-inter;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+  }
+  
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
   }
 }
 
@@ -92,5 +108,31 @@
   @keyframes shimmer {
     0% { background-position: -200% 0; }
     100% { background-position: 200% 0; }
+  }
+  
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+  
+  .gradient-secondary {
+    background: var(--gradient-secondary);
+  }
+  
+  .gradient-success {
+    background: var(--gradient-success);
+  }
+  
+  .gradient-warning {
+    background: var(--gradient-warning);
+  }
+  
+  .gradient-danger {
+    background: var(--gradient-danger);
+  }
+  
+  .glass-effect {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 }

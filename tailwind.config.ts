@@ -56,18 +56,35 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				// Community theme colors
+				// Enhanced community theme colors with gradients
 				'community-blue': '#3B82F6',
 				'community-green': '#10B981',
 				'community-purple': '#8B5CF6',
 				'community-orange': '#F59E0B',
 				'community-red': '#EF4444',
 				'community-pink': '#EC4899',
+				'community-teal': '#14B8A6',
+				'community-indigo': '#6366F1',
+				'community-cyan': '#06B6D4',
+				'community-lime': '#84CC16',
+				'community-rose': '#F43F5E',
+				'community-amber': '#F59E0B',
+				'community-emerald': '#10B981',
+				'community-violet': '#8B5CF6',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
+			},
+			backgroundImage: {
+				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+				'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+				'gradient-primary': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+				'gradient-secondary': 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+				'gradient-success': 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+				'gradient-warning': 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+				'gradient-danger': 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
 			},
 			keyframes: {
 				'accordion-down': {
@@ -107,6 +124,14 @@ export default {
 				'pulse-soft': {
 					'0%, 100%': { opacity: '1' },
 					'50%': { opacity: '0.8' }
+				},
+				'glow': {
+					'0%, 100%': { boxShadow: '0 0 5px rgba(59, 130, 246, 0.5)' },
+					'50%': { boxShadow: '0 0 20px rgba(59, 130, 246, 0.8)' }
+				},
+				'float': {
+					'0%, 100%': { transform: 'translateY(0px)' },
+					'50%': { transform: 'translateY(-10px)' }
 				}
 			},
 			animation: {
@@ -115,7 +140,9 @@ export default {
 				'fade-in': 'fade-in 0.3s ease-out',
 				'slide-in-right': 'slide-in-right 0.3s ease-out',
 				'bounce-gentle': 'bounce-gentle 2s infinite',
-				'pulse-soft': 'pulse-soft 2s infinite'
+				'pulse-soft': 'pulse-soft 2s infinite',
+				'glow': 'glow 2s infinite',
+				'float': 'float 3s ease-in-out infinite'
 			}
 		}
 	},
