@@ -17,6 +17,7 @@ const Login = ({ onLogin }: LoginProps) => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,61 +31,68 @@ const Login = ({ onLogin }: LoginProps) => {
     }, 1500);
   };
 
-  const handleSocialLogin = (provider: string) => {
-    toast.info(`${provider} login coming soon!`);
+  const handleGoogleLogin = async () => {
+    setIsGoogleLoading(true);
+    
+    // Simulate Google login
+    setTimeout(() => {
+      setIsGoogleLoading(false);
+      toast.success("Successfully logged in with Google!");
+      onLogin();
+    }, 2000);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-community-blue/10 via-white to-community-purple/10 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[#FAFAFA] flex items-center justify-center p-4">
       <div className="w-full max-w-md animate-fade-in">
         {/* Logo/Brand */}
         <div className="text-center mb-8">
-          <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-community-blue to-community-purple flex items-center justify-center shadow-lg">
+          <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#1E88E5] to-[#43A047] flex items-center justify-center shadow-lg">
             <span className="text-3xl">🏘️</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">MyCommunityHub</h1>
-          <p className="text-gray-600">Welcome back to your community</p>
+          <h1 className="text-2xl font-bold text-[#212121]">MyCommunityHub</h1>
+          <p className="text-[#757575]">Welcome back to your community</p>
         </div>
 
-        <Card className="shadow-xl border-0 bg-white/70 backdrop-blur-sm">
+        <Card className="shadow-xl border-0 bg-white">
           <CardHeader className="text-center pb-6">
-            <CardTitle className="text-xl text-gray-900">Sign In</CardTitle>
+            <CardTitle className="text-xl text-[#212121]">Sign In</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleLogin} className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email" className="text-[#212121] font-medium">Email</Label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <Mail className="absolute left-3 top-3 h-4 w-4 text-[#757575]" />
                   <Input
                     id="email"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email"
-                    className="pl-10 h-12"
+                    className="pl-10 h-12 border-gray-300 focus:border-[#1E88E5] text-[#212121]"
                     required
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password" className="text-[#212121] font-medium">Password</Label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <Lock className="absolute left-3 top-3 h-4 w-4 text-[#757575]" />
                   <Input
                     id="password"
                     type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter your password"
-                    className="pl-10 pr-10 h-12"
+                    className="pl-10 pr-10 h-12 border-gray-300 focus:border-[#1E88E5] text-[#212121]"
                     required
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+                    className="absolute right-3 top-3 text-[#757575] hover:text-[#212121]"
                   >
                     {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                   </button>
@@ -94,7 +102,7 @@ const Login = ({ onLogin }: LoginProps) => {
               <div className="text-right">
                 <Link 
                   to="/forgot-password" 
-                  className="text-sm text-community-blue hover:text-community-purple transition-colors"
+                  className="text-sm text-[#1E88E5] hover:text-[#1976D2] transition-colors"
                 >
                   Forgot your password?
                 </Link>
@@ -103,7 +111,7 @@ const Login = ({ onLogin }: LoginProps) => {
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="w-full h-12 bg-gradient-to-r from-community-blue to-community-purple hover:from-community-purple hover:to-community-blue text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                className="w-full h-12 bg-[#FF7043] hover:bg-[#FF5722] text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 {isLoading ? (
                   <div className="flex items-center space-x-2">
@@ -115,42 +123,41 @@ const Login = ({ onLogin }: LoginProps) => {
                 )}
               </Button>
 
-              {/* Social Login */}
+              {/* Google Login */}
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
                   <div className="w-full border-t border-gray-300" />
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white text-gray-500">Or continue with</span>
+                  <span className="px-2 bg-white text-[#757575]">Or continue with</span>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => handleSocialLogin("Google")}
-                  className="h-12 border-gray-300 hover:bg-gray-50"
-                >
-                  <span className="mr-2">📧</span>
-                  Google
-                </Button>
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => handleSocialLogin("Facebook")}
-                  className="h-12 border-gray-300 hover:bg-gray-50"
-                >
-                  <span className="mr-2">📘</span>
-                  Facebook
-                </Button>
-              </div>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handleGoogleLogin}
+                disabled={isGoogleLoading}
+                className="w-full h-12 border-gray-300 hover:bg-gray-50 text-[#212121]"
+              >
+                {isGoogleLoading ? (
+                  <div className="flex items-center space-x-2">
+                    <div className="animate-spin rounded-full h-4 w-4 border-2 border-[#1E88E5] border-t-transparent"></div>
+                    <span>Signing in with Google...</span>
+                  </div>
+                ) : (
+                  <>
+                    <span className="mr-2">📧</span>
+                    Continue with Google
+                  </>
+                )}
+              </Button>
 
               <div className="text-center">
-                <span className="text-gray-600">Don't have an account? </span>
+                <span className="text-[#757575]">Don't have an account? </span>
                 <Link 
                   to="/signup" 
-                  className="text-community-blue hover:text-community-purple font-semibold transition-colors"
+                  className="text-[#1E88E5] hover:text-[#1976D2] font-semibold transition-colors"
                 >
                   Sign Up
                 </Link>

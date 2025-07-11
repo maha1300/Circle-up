@@ -13,14 +13,14 @@ const BottomNavigation = () => {
       icon: Home, 
       emoji: "🏠",
       label: "Home",
-      gradient: "from-community-blue to-community-cyan"
+      gradient: "from-[#1E88E5] to-[#43A047]"
     },
     { 
       path: "/communities", 
       icon: Users, 
       emoji: "🌐",
       label: "Communities",
-      gradient: "from-community-green to-community-teal"
+      gradient: "from-[#43A047] to-[#1E88E5]"
     },
     { 
       path: "/create-post", 
@@ -28,21 +28,21 @@ const BottomNavigation = () => {
       emoji: "✨",
       label: "Post", 
       isSpecial: true,
-      gradient: "from-community-purple to-community-pink"
+      gradient: "from-[#FF7043] to-[#1E88E5]"
     },
     { 
       path: "/notifications", 
       icon: Bell, 
       emoji: "🔔",
       label: "Notifications",
-      gradient: "from-community-orange to-community-amber"
+      gradient: "from-[#FF7043] to-[#43A047]"
     },
     { 
       path: "/profile", 
       icon: User, 
       emoji: "👤",
       label: "Profile",
-      gradient: "from-community-rose to-community-pink"
+      gradient: "from-[#1E88E5] to-[#FF7043]"
     },
   ];
 
@@ -54,7 +54,7 @@ const BottomNavigation = () => {
   };
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-xl border-t border-white/20 shadow-2xl z-50">
+    <nav className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-gray-200 shadow-2xl z-50">
       <div className="flex justify-around items-center py-3 px-4 max-w-lg mx-auto">
         {navItems.map((item) => {
           const IconComponent = item.icon;
@@ -71,7 +71,7 @@ const BottomNavigation = () => {
                     }`
                   : isActive(item.path)
                   ? `bg-gradient-to-r ${item.gradient} text-white shadow-lg animate-bounce-gentle`
-                  : "text-slate-500 hover:text-slate-700 hover:bg-slate-100/50"
+                  : "text-[#757575] hover:text-[#212121] hover:bg-gray-100"
               }`}
               onTouchStart={() => item.isSpecial && setIsCreatePressed(true)}
               onTouchEnd={() => item.isSpecial && setIsCreatePressed(false)}
@@ -82,7 +82,7 @@ const BottomNavigation = () => {
               {/* Special floating effect for create button */}
               {item.isSpecial && (
                 <div className={`absolute -top-4 left-1/2 transform -translate-x-1/2 w-14 h-14 rounded-full bg-gradient-to-br ${item.gradient} flex items-center justify-center shadow-2xl animate-float`}>
-                  <span className="text-2xl animate-pulse-soft">{item.emoji}</span>
+                  <Plus className="w-6 h-6 text-white font-bold" strokeWidth={3} />
                 </div>
               )}
               
@@ -109,7 +109,7 @@ const BottomNavigation = () => {
               
               {/* Create button label */}
               {item.isSpecial && (
-                <span className="text-xs font-bold mt-4 text-slate-600">{item.label}</span>
+                <span className="text-xs font-bold mt-4 text-[#757575]">{item.label}</span>
               )}
             </Link>
           );

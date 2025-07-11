@@ -6,6 +6,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Heart, MessageCircle, Share, MapPin, Clock, Sparkles } from "lucide-react";
 import { toast } from "sonner";
+import CommentsModal from "./CommentsModal";
+import ShareModal from "./ShareModal";
 
 interface Post {
   id: number;
@@ -32,6 +34,8 @@ interface PostCardProps {
 const PostCard = ({ post }: PostCardProps) => {
   const [isLiked, setIsLiked] = useState(post.isLiked);
   const [likes, setLikes] = useState(post.likes);
+  const [showComments, setShowComments] = useState(false);
+  const [showShare, setShowShare] = useState(false);
 
   const categoryConfig = {
     alert: { 
@@ -81,117 +85,132 @@ const PostCard = ({ post }: PostCardProps) => {
   };
 
   const handleComment = () => {
-    toast.info("💬 Comments feature coming soon!");
+    setShowComments(true);
   };
 
   const handleShare = () => {
-    toast.success("🔗 Link copied to clipboard!");
+    setShowShare(true);
   };
 
   return (
-    <Card className="bg-white/90 backdrop-blur-lg border-0 shadow-xl hover:shadow-2xl transition-all duration-500 animate-fade-in hover:scale-[1.02] overflow-hidden">
-      <div className={`h-1 w-full bg-gradient-to-r ${config.gradient}`}></div>
-      <CardContent className="p-5">
-        {/* Author Header */}
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center space-x-3">
-            <Avatar className="w-12 h-12 ring-2 ring-white shadow-lg">
-              <AvatarImage src={post.author.avatar.startsWith('http') ? post.author.avatar : undefined} />
-              <AvatarFallback className={`bg-gradient-to-br ${config.gradient} text-white font-bold`}>
-                {post.author.avatar.startsWith('http') ? 
-                  post.author.name.split(' ').map(n => n[0]).join('') : 
-                  post.author.avatar
-                }
-              </AvatarFallback>
-            </Avatar>
-            <div>
-              <div className="flex items-center space-x-2">
-                <h3 className="font-bold text-slate-800">{post.author.name}</h3>
-                {post.author.isOfficial && (
-                  <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 text-white text-xs border-0 animate-pulse-soft">
-                    <Sparkles className="w-3 h-3 mr-1" />
-                    Official
-                  </Badge>
-                )}
-              </div>
-              <div className="flex items-center space-x-4 text-xs text-slate-500">
-                <div className="flex items-center space-x-1">
-                  <Clock size={12} className="text-community-blue" />
-                  <span>{post.timestamp}</span>
+    <>
+      <Card className="bg-white/90 backdrop-blur-lg border-0 shadow-xl hover:shadow-2xl transition-all duration-500 animate-fade-in hover:scale-[1.02] overflow-hidden">
+        <div className={`h-1 w-full bg-gradient-to-r ${config.gradient}`}></div>
+        <CardContent className="p-5">
+          {/* Author Header */}
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center space-x-3">
+              <Avatar className="w-12 h-12 ring-2 ring-white shadow-lg">
+                <AvatarImage src={post.author.avatar.startsWith('http') ? post.author.avatar : undefined} />
+                <AvatarFallback className={`bg-gradient-to-br ${config.gradient} text-white font-bold`}>
+                  {post.author.avatar.startsWith('http') ? 
+                    post.author.name.split(' ').map(n => n[0]).join('') : 
+                    post.author.avatar
+                  }
+                </AvatarFallback>
+              </Avatar>
+              <div>
+                <div className="flex items-center space-x-2">
+                  <h3 className="font-bold text-[#212121]">{post.author.name}</h3>
+                  {post.author.isOfficial && (
+                    <Badge className="bg-gradient-to-r from-[#1E88E5] to-[#43A047] text-white text-xs border-0 animate-pulse-soft">
+                      <Sparkles className="w-3 h-3 mr-1" />
+                      Official
+                    </Badge>
+                  )}
                 </div>
-                <div className="flex items-center space-x-1">
-                  <MapPin size={12} className="text-community-green" />
-                  <span>{post.location}</span>
+                <div className="flex items-center space-x-4 text-xs text-[#757575]">
+                  <div className="flex items-center space-x-1">
+                    <Clock size={12} className="text-[#1E88E5]" />
+                    <span>{post.timestamp}</span>
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <MapPin size={12} className="text-[#43A047]" />
+                    <span>{post.location}</span>
+                  </div>
                 </div>
               </div>
             </div>
+            
+            <Badge className={`${config.bgColor} ${config.textColor} border-0 font-bold shadow-lg animate-float`}>
+              <span className="mr-1 text-sm">{config.icon}</span>
+              {post.category}
+            </Badge>
           </div>
-          
-          <Badge className={`${config.bgColor} ${config.textColor} border-0 font-bold shadow-lg animate-float`}>
-            <span className="mr-1 text-sm">{config.icon}</span>
-            {post.category}
-          </Badge>
-        </div>
 
-        {/* Content */}
-        <div className="mb-4">
-          <p className="text-slate-700 leading-relaxed font-medium">{post.content}</p>
-          {post.image && (
-            <div className="mt-4 rounded-xl overflow-hidden shadow-lg">
-              <img 
-                src={post.image} 
-                alt="Post content" 
-                className="w-full h-48 object-cover hover:scale-110 transition-transform duration-500"
-              />
+          {/* Content */}
+          <div className="mb-4">
+            <p className="text-[#212121] leading-relaxed font-medium">{post.content}</p>
+            {post.image && (
+              <div className="mt-4 rounded-xl overflow-hidden shadow-lg">
+                <img 
+                  src={post.image} 
+                  alt="Post content" 
+                  className="w-full h-48 object-cover hover:scale-110 transition-transform duration-500"
+                />
+              </div>
+            )}
+          </div>
+
+          {/* Actions */}
+          <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+            <div className="flex items-center space-x-6">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleLike}
+                className={`flex items-center space-x-2 transition-all duration-300 ${
+                  isLiked 
+                    ? 'text-pink-600 bg-pink-50 hover:bg-pink-100 animate-bounce-gentle' 
+                    : 'text-[#757575] hover:bg-pink-50 hover:text-pink-600'
+                }`}
+              >
+                <Heart 
+                  size={18} 
+                  className={`transition-all duration-300 ${
+                    isLiked ? 'fill-current text-pink-600 scale-125' : ''
+                  }`} 
+                />
+                <span className="font-bold">{likes}</span>
+              </Button>
+
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleComment}
+                className="flex items-center space-x-2 text-[#757575] hover:bg-blue-50 hover:text-[#1E88E5] transition-all duration-300"
+              >
+                <MessageCircle size={18} />
+                <span className="font-bold">{post.comments}</span>
+              </Button>
+
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleShare}
+                className="flex items-center space-x-2 text-[#757575] hover:bg-green-50 hover:text-[#43A047] transition-all duration-300"
+              >
+                <Share size={18} />
+                <span className="font-bold">{post.shares}</span>
+              </Button>
             </div>
-          )}
-        </div>
-
-        {/* Actions */}
-        <div className="flex items-center justify-between pt-4 border-t border-slate-100">
-          <div className="flex items-center space-x-6">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleLike}
-              className={`flex items-center space-x-2 transition-all duration-300 ${
-                isLiked 
-                  ? 'text-pink-600 bg-pink-50 hover:bg-pink-100 animate-bounce-gentle' 
-                  : 'text-slate-600 hover:bg-pink-50 hover:text-pink-600'
-              }`}
-            >
-              <Heart 
-                size={18} 
-                className={`transition-all duration-300 ${
-                  isLiked ? 'fill-current text-pink-600 scale-125' : ''
-                }`} 
-              />
-              <span className="font-bold">{likes}</span>
-            </Button>
-
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleComment}
-              className="flex items-center space-x-2 text-slate-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-300"
-            >
-              <MessageCircle size={18} />
-              <span className="font-bold">{post.comments}</span>
-            </Button>
-
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleShare}
-              className="flex items-center space-x-2 text-slate-600 hover:bg-green-50 hover:text-green-600 transition-all duration-300"
-            >
-              <Share size={18} />
-              <span className="font-bold">{post.shares}</span>
-            </Button>
           </div>
-        </div>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+
+      <CommentsModal 
+        isOpen={showComments} 
+        onClose={() => setShowComments(false)} 
+        postId={post.id} 
+      />
+      
+      <ShareModal 
+        isOpen={showShare} 
+        onClose={() => setShowShare(false)} 
+        postId={post.id}
+        postContent={post.content}
+      />
+    </>
   );
 };
 
