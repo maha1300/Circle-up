@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Camera, MapPin, Send, Image, Video, Upload, X } from "lucide-react";
+import { Camera, MapPin, Send, Image, Video, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const CreatePost = () => {
@@ -87,7 +87,7 @@ const CreatePost = () => {
 
     toast({
       title: "Post Created!",
-      description: "Your post has been shared with the community.",
+      description: "Your post has been shared with the community and added to your profile.",
     });
     
     // Reset form
@@ -100,11 +100,11 @@ const CreatePost = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA] p-4">
+    <div className="min-h-screen bg-background p-4">
       <div className="max-w-md mx-auto pt-8">
-        <Card className="shadow-lg border-0 bg-white">
+        <Card className="shadow-lg border-0 bg-card">
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl font-bold text-[#212121]">
+            <CardTitle className="text-2xl font-bold text-card-foreground">
               Create New Post
             </CardTitle>
           </CardHeader>
@@ -115,7 +115,7 @@ const CreatePost = () => {
                   placeholder="Post title..."
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="border-gray-300 focus:border-[#1E88E5] text-[#212121]"
+                  className="bg-input border-border focus:border-primary text-card-foreground"
                   required
                 />
               </div>
@@ -125,14 +125,14 @@ const CreatePost = () => {
                   placeholder="What's happening in your community?"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="border-gray-300 focus:border-[#1E88E5] min-h-[120px] text-[#212121]"
+                  className="bg-input border-border focus:border-primary min-h-[120px] text-card-foreground"
                   required
                 />
               </div>
               
               <div>
                 <Select value={category} onValueChange={setCategory} required>
-                  <SelectTrigger className="border-gray-300 focus:border-[#1E88E5]">
+                  <SelectTrigger className="bg-input border-border focus:border-primary">
                     <SelectValue placeholder="Select category" />
                   </SelectTrigger>
                   <SelectContent>
@@ -149,12 +149,12 @@ const CreatePost = () => {
               </div>
               
               <div className="relative">
-                <MapPin className="absolute left-3 top-3 h-4 w-4 text-[#757575]" />
+                <MapPin className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                 <Input
                   placeholder="Location (optional)"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
-                  className="pl-10 border-gray-300 focus:border-[#1E88E5] text-[#212121]"
+                  className="pl-10 bg-input border-border focus:border-primary text-card-foreground"
                 />
               </div>
               
@@ -183,30 +183,30 @@ const CreatePost = () => {
                 <Button
                   type="button"
                   variant="outline"
-                  className="flex flex-col items-center p-4 h-auto border-gray-300 hover:bg-gray-50"
+                  className="flex flex-col items-center p-4 h-auto border-border hover:bg-muted"
                   onClick={() => fileInputRef.current?.click()}
                 >
-                  <Image className="h-5 w-5 mb-1 text-[#1E88E5]" />
+                  <Image className="h-5 w-5 mb-1 text-primary" />
                   <span className="text-xs">Photo</span>
                 </Button>
                 
                 <Button
                   type="button"
                   variant="outline"
-                  className="flex flex-col items-center p-4 h-auto border-gray-300 hover:bg-gray-50"
+                  className="flex flex-col items-center p-4 h-auto border-border hover:bg-muted"
                   onClick={handleCameraCapture}
                 >
-                  <Camera className="h-5 w-5 mb-1 text-[#43A047]" />
+                  <Camera className="h-5 w-5 mb-1 text-accent" />
                   <span className="text-xs">Camera</span>
                 </Button>
                 
                 <Button
                   type="button"
                   variant="outline"
-                  className="flex flex-col items-center p-4 h-auto border-gray-300 hover:bg-gray-50"
+                  className="flex flex-col items-center p-4 h-auto border-border hover:bg-muted"
                   onClick={() => videoInputRef.current?.click()}
                 >
-                  <Video className="h-5 w-5 mb-1 text-[#FF7043]" />
+                  <Video className="h-5 w-5 mb-1 text-primary" />
                   <span className="text-xs">Video</span>
                 </Button>
               </div>
@@ -230,11 +230,11 @@ const CreatePost = () => {
               <Button
                 type="submit"
                 disabled={isLoading || !title || !description || !category}
-                className="w-full bg-[#FF7043] hover:bg-[#FF5722] text-white font-semibold py-3 rounded-lg transition-all duration-200 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 rounded-lg transition-all duration-200 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
               >
                 {isLoading ? (
                   <div className="flex items-center">
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary-foreground mr-2"></div>
                     Posting...
                   </div>
                 ) : (

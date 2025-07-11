@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -58,6 +58,12 @@ const Profile = ({ onLogout }: ProfileProps) => {
     { id: 3, name: "Temple Street", members: 234, role: "Member" }
   ];
 
+  const followingList = [
+    { id: 1, name: "Dr. Lakshmi", location: "Trichy", avatar: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=100&h=100&fit=crop&crop=face" },
+    { id: 2, name: "Raj Kumar", location: "Thanjavur", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" },
+    { id: 3, name: "Priya Sharma", location: "Chennai", avatar: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=100&h=100&fit=crop&crop=face" }
+  ];
+
   const handleLogout = () => {
     toast({
       title: "Logged out successfully",
@@ -73,53 +79,57 @@ const Profile = ({ onLogout }: ProfileProps) => {
       avatar: updatedProfile.avatar,
       location: updatedProfile.location
     }));
+    toast({
+      title: "Profile updated",
+      description: "Your profile has been updated successfully.",
+    });
   };
 
   return (
     <>
-      <div className="min-h-screen bg-[#FAFAFA] p-4">
+      <div className="min-h-screen bg-background p-4">
         <div className="max-w-md mx-auto pt-8">
           {/* Profile Header */}
-          <Card className="mb-6 shadow-lg border-0 bg-white">
+          <Card className="mb-6 shadow-lg border-0 bg-card">
             <CardContent className="pt-6">
               <div className="flex flex-col items-center text-center">
-                <Avatar className="h-20 w-20 mb-4 ring-4 ring-[#1E88E5]/20">
+                <Avatar className="h-20 w-20 mb-4 ring-4 ring-primary/20">
                   <AvatarImage src={userProfile.avatar} alt={userProfile.name} />
-                  <AvatarFallback className="bg-gradient-to-r from-[#1E88E5] to-[#43A047] text-white text-lg font-bold">
+                  <AvatarFallback className="bg-gradient-to-r from-primary to-accent text-primary-foreground text-lg font-bold">
                     {userProfile.name.split(' ').map(n => n[0]).join('')}
                   </AvatarFallback>
                 </Avatar>
                 
-                <h1 className="text-xl font-bold text-[#212121] mb-1">{userProfile.name}</h1>
-                <p className="text-[#757575] text-sm mb-2">{userProfile.bio}</p>
+                <h1 className="text-xl font-bold text-card-foreground mb-1">{userProfile.name}</h1>
+                <p className="text-muted-foreground text-sm mb-2">{userProfile.bio}</p>
                 
-                <div className="flex items-center text-[#757575] text-sm mb-2">
+                <div className="flex items-center text-muted-foreground text-sm mb-2">
                   <MapPin className="h-4 w-4 mr-1" />
                   {userProfile.location}
                 </div>
                 
-                <div className="flex items-center text-[#757575] text-sm mb-4">
+                <div className="flex items-center text-muted-foreground text-sm mb-4">
                   <Calendar className="h-4 w-4 mr-1" />
                   {userProfile.joinedDate}
                 </div>
                 
                 <div className="flex space-x-6 mb-4">
                   <div className="text-center">
-                    <div className="text-lg font-bold text-[#212121]">{userProfile.stats.posts}</div>
-                    <div className="text-xs text-[#757575]">Posts</div>
+                    <div className="text-lg font-bold text-card-foreground">{userProfile.stats.posts}</div>
+                    <div className="text-xs text-muted-foreground">Posts</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-lg font-bold text-[#212121]">{userProfile.stats.communities}</div>
-                    <div className="text-xs text-[#757575]">Communities</div>
+                    <div className="text-lg font-bold text-card-foreground">{userProfile.stats.communities}</div>
+                    <div className="text-xs text-muted-foreground">Communities</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-lg font-bold text-[#212121]">{userProfile.stats.following}</div>
-                    <div className="text-xs text-[#757575]">Following</div>
+                    <div className="text-lg font-bold text-card-foreground">{userProfile.stats.following}</div>
+                    <div className="text-xs text-muted-foreground">Following</div>
                   </div>
                 </div>
                 
                 <Button 
-                  className="w-full bg-[#1E88E5] hover:bg-[#1976D2] text-white"
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
                   onClick={() => setShowEditProfile(true)}
                 >
                   <Edit className="h-4 w-4 mr-2" />
@@ -131,24 +141,25 @@ const Profile = ({ onLogout }: ProfileProps) => {
 
           {/* Tabs */}
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-3 mb-4 bg-white">
-              <TabsTrigger value="posts" className="text-[#212121]">My Posts</TabsTrigger>
-              <TabsTrigger value="communities" className="text-[#212121]">Communities</TabsTrigger>
-              <TabsTrigger value="settings" className="text-[#212121]">Settings</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-4 mb-4 bg-card">
+              <TabsTrigger value="posts" className="text-card-foreground">Posts</TabsTrigger>
+              <TabsTrigger value="communities" className="text-card-foreground">Communities</TabsTrigger>
+              <TabsTrigger value="following" className="text-card-foreground">Following</TabsTrigger>
+              <TabsTrigger value="settings" className="text-card-foreground">Settings</TabsTrigger>
             </TabsList>
 
             <TabsContent value="posts" className="space-y-4">
               {myPosts.map((post) => (
-                <Card key={post.id} className="shadow-md border-0 bg-white">
+                <Card key={post.id} className="shadow-md border-0 bg-card">
                   <CardContent className="p-4">
                     <div className="flex justify-between items-start mb-2">
-                      <h3 className="font-semibold text-[#212121]">{post.title}</h3>
-                      <Badge variant="secondary" className="text-xs bg-[#1E88E5]/10 text-[#1E88E5]">
+                      <h3 className="font-semibold text-card-foreground">{post.title}</h3>
+                      <Badge variant="secondary" className="text-xs bg-primary/10 text-primary">
                         {post.category}
                       </Badge>
                     </div>
-                    <p className="text-[#757575] text-sm mb-3">{post.content}</p>
-                    <div className="flex justify-between items-center text-xs text-[#757575]">
+                    <p className="text-muted-foreground text-sm mb-3">{post.content}</p>
+                    <div className="flex justify-between items-center text-xs text-muted-foreground">
                       <div className="flex space-x-4">
                         <span>❤️ {post.likes}</span>
                         <span>💬 {post.comments}</span>
@@ -162,18 +173,18 @@ const Profile = ({ onLogout }: ProfileProps) => {
 
             <TabsContent value="communities" className="space-y-4">
               {joinedCommunities.map((community) => (
-                <Card key={community.id} className="shadow-md border-0 bg-white">
+                <Card key={community.id} className="shadow-md border-0 bg-card">
                   <CardContent className="p-4">
                     <div className="flex justify-between items-start">
                       <div>
-                        <h3 className="font-semibold text-[#212121]">{community.name}</h3>
-                        <p className="text-[#757575] text-sm flex items-center mt-1">
+                        <h3 className="font-semibold text-card-foreground">{community.name}</h3>
+                        <p className="text-muted-foreground text-sm flex items-center mt-1">
                           <Users className="h-4 w-4 mr-1" />
                           {community.members} members
                         </p>
                       </div>
                       <Badge variant={community.role === 'Admin' ? 'default' : 'secondary'} 
-                             className={community.role === 'Admin' ? 'bg-[#43A047] text-white' : 'bg-gray-200 text-[#757575]'}>
+                             className={community.role === 'Admin' ? 'bg-accent text-accent-foreground' : 'bg-secondary text-secondary-foreground'}>
                         {community.role}
                       </Badge>
                     </div>
@@ -182,20 +193,47 @@ const Profile = ({ onLogout }: ProfileProps) => {
               ))}
             </TabsContent>
 
+            <TabsContent value="following" className="space-y-4">
+              {followingList.map((person) => (
+                <Card key={person.id} className="shadow-md border-0 bg-card">
+                  <CardContent className="p-4">
+                    <div className="flex items-center space-x-3">
+                      <Avatar className="h-12 w-12">
+                        <AvatarImage src={person.avatar} alt={person.name} />
+                        <AvatarFallback className="bg-primary text-primary-foreground">
+                          {person.name.split(' ').map(n => n[0]).join('')}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-card-foreground">{person.name}</h3>
+                        <p className="text-muted-foreground text-sm flex items-center">
+                          <MapPin className="h-3 w-3 mr-1" />
+                          {person.location}
+                        </p>
+                      </div>
+                      <Button variant="outline" size="sm" className="border-border">
+                        Following
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </TabsContent>
+
             <TabsContent value="settings" className="space-y-4">
-              <Card className="shadow-md border-0 bg-white">
+              <Card className="shadow-md border-0 bg-card">
                 <CardContent className="p-4 space-y-4">
-                  <Button variant="outline" className="w-full justify-start border-gray-300 text-[#212121] hover:bg-gray-50">
+                  <Button variant="outline" className="w-full justify-start border-border text-card-foreground hover:bg-muted">
                     <Settings className="h-4 w-4 mr-2" />
                     Account Settings
                   </Button>
-                  <Button variant="outline" className="w-full justify-start border-gray-300 text-[#212121] hover:bg-gray-50">
+                  <Button variant="outline" className="w-full justify-start border-border text-card-foreground hover:bg-muted">
                     <FileText className="h-4 w-4 mr-2" />
                     Privacy Policy
                   </Button>
                   <Button 
                     variant="destructive" 
-                    className="w-full justify-start bg-red-500 hover:bg-red-600 text-white"
+                    className="w-full justify-start bg-destructive hover:bg-destructive/90 text-destructive-foreground"
                     onClick={handleLogout}
                   >
                     <LogOut className="h-4 w-4 mr-2" />

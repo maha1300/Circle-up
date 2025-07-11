@@ -44,33 +44,33 @@ const Signup = ({ onSignup }: SignupProps) => {
     // Simulate signup
     setTimeout(() => {
       setIsLoading(false);
-      toast.success("Welcome to MyCommunityHub!");
+      toast.success("Account created successfully! Welcome to MyCommunityHub!");
       onSignup();
     }, 1500);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-community-green/10 via-white to-community-blue/10 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-secondary via-muted to-accent flex items-center justify-center p-4">
       <div className="w-full max-w-md animate-fade-in">
         {/* Logo/Brand */}
         <div className="text-center mb-8">
-          <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-community-green to-community-blue flex items-center justify-center shadow-lg">
+          <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg">
             <span className="text-3xl">🌟</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">Join Your Community</h1>
-          <p className="text-gray-600">Create your account to get started</p>
+          <h1 className="text-2xl font-bold text-foreground">Join Your Community</h1>
+          <p className="text-muted-foreground">Create your account to get started</p>
         </div>
 
-        <Card className="shadow-xl border-0 bg-white/70 backdrop-blur-sm">
+        <Card className="shadow-xl border-0 bg-card/90 backdrop-blur-sm">
           <CardHeader className="text-center pb-6">
-            <CardTitle className="text-xl text-gray-900">Create Account</CardTitle>
+            <CardTitle className="text-xl text-card-foreground">Create Account</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSignup} className="space-y-5">
               <div className="space-y-2">
                 <Label htmlFor="name">Full Name</Label>
                 <div className="relative">
-                  <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="name"
                     name="name"
@@ -78,7 +78,7 @@ const Signup = ({ onSignup }: SignupProps) => {
                     value={formData.name}
                     onChange={handleInputChange}
                     placeholder="Enter your full name"
-                    className="pl-10 h-12"
+                    className="pl-10 h-12 bg-input"
                     required
                   />
                 </div>
@@ -87,7 +87,7 @@ const Signup = ({ onSignup }: SignupProps) => {
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="email"
                     name="email"
@@ -95,7 +95,7 @@ const Signup = ({ onSignup }: SignupProps) => {
                     value={formData.email}
                     onChange={handleInputChange}
                     placeholder="Enter your email"
-                    className="pl-10 h-12"
+                    className="pl-10 h-12 bg-input"
                     required
                   />
                 </div>
@@ -104,7 +104,7 @@ const Signup = ({ onSignup }: SignupProps) => {
               <div className="space-y-2">
                 <Label htmlFor="location">Location</Label>
                 <div className="relative">
-                  <MapPin className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <MapPin className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="location"
                     name="location"
@@ -112,7 +112,7 @@ const Signup = ({ onSignup }: SignupProps) => {
                     value={formData.location}
                     onChange={handleInputChange}
                     placeholder="e.g., Thanjavur, Tamil Nadu"
-                    className="pl-10 h-12"
+                    className="pl-10 h-12 bg-input"
                     required
                   />
                 </div>
@@ -121,7 +121,7 @@ const Signup = ({ onSignup }: SignupProps) => {
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="password"
                     name="password"
@@ -129,13 +129,13 @@ const Signup = ({ onSignup }: SignupProps) => {
                     value={formData.password}
                     onChange={handleInputChange}
                     placeholder="Create a password"
-                    className="pl-10 pr-10 h-12"
+                    className="pl-10 pr-10 h-12 bg-input"
                     required
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+                    className="absolute right-3 top-3 text-muted-foreground hover:text-foreground"
                   >
                     {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                   </button>
@@ -145,7 +145,7 @@ const Signup = ({ onSignup }: SignupProps) => {
               <div className="space-y-2">
                 <Label htmlFor="confirmPassword">Confirm Password</Label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="confirmPassword"
                     name="confirmPassword"
@@ -153,13 +153,13 @@ const Signup = ({ onSignup }: SignupProps) => {
                     value={formData.confirmPassword}
                     onChange={handleInputChange}
                     placeholder="Confirm your password"
-                    className="pl-10 pr-10 h-12"
+                    className="pl-10 pr-10 h-12 bg-input"
                     required
                   />
                   <button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+                    className="absolute right-3 top-3 text-muted-foreground hover:text-foreground"
                   >
                     {showConfirmPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                   </button>
@@ -169,11 +169,11 @@ const Signup = ({ onSignup }: SignupProps) => {
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="w-full h-12 bg-gradient-to-r from-community-green to-community-blue hover:from-community-blue hover:to-community-green text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                className="w-full h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 {isLoading ? (
                   <div className="flex items-center space-x-2">
-                    <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
+                    <div className="animate-spin rounded-full h-4 w-4 border-2 border-primary-foreground border-t-transparent"></div>
                     <span>Creating Account...</span>
                   </div>
                 ) : (
@@ -182,10 +182,10 @@ const Signup = ({ onSignup }: SignupProps) => {
               </Button>
 
               <div className="text-center">
-                <span className="text-gray-600">Already have an account? </span>
+                <span className="text-muted-foreground">Already have an account? </span>
                 <Link 
                   to="/login" 
-                  className="text-community-blue hover:text-community-green font-semibold transition-colors"
+                  className="text-primary hover:text-primary/80 font-semibold transition-colors"
                 >
                   Sign In
                 </Link>
