@@ -7,23 +7,23 @@
 
 @layer base {
   :root {
-    --background: 239 246 224; /* #EFF6E0 */
-    --foreground: 1 22 30;
+    --background: 239 246 224; /* #EFF6E0 - Light cream */
+    --foreground: 0 0 0; /* #000000 - Black text */
 
-    --card: 255 255 255;
-    --card-foreground: 1 22 30;
+    --card: 255 255 255; /* White cards */
+    --card-foreground: 0 0 0; /* Black text on cards */
 
     --popover: 255 255 255;
-    --popover-foreground: 1 22 30;
+    --popover-foreground: 0 0 0;
 
-    --primary: 18 69 89; /* #124559 */
-    --primary-foreground: 239 246 224;
+    --primary: 18 69 89; /* #124559 - Dark teal */
+    --primary-foreground: 239 246 224; /* Light text on primary */
 
-    --secondary: 174 195 176; /* #AEC3B0 */
-    --secondary-foreground: 1 22 30;
+    --secondary: 174 195 176; /* #AEC3B0 - Light green */
+    --secondary-foreground: 0 0 0; /* Black text on secondary */
 
-    --muted: 89 131 146; /* #598392 */
-    --muted-foreground: 239 246 224;
+    --muted: 89 131 146; /* #598392 - Medium teal */
+    --muted-foreground: 0 0 0; /* Black text on muted */
 
     --accent: 89 131 146; /* #598392 */
     --accent-foreground: 239 246 224;
@@ -39,8 +39,8 @@
   }
 
   .dark {
-    --background: 1 22 30; /* #01161E */
-    --foreground: 239 246 224;
+    --background: 1 22 30; /* #01161E - Dark background */
+    --foreground: 239 246 224; /* Light text in dark mode */
 
     --card: 18 69 89; /* #124559 */
     --card-foreground: 239 246 224;
@@ -77,6 +77,7 @@
   body {
     @apply bg-background text-foreground font-[Poppins];
     background: hsl(var(--background));
+    color: hsl(var(--foreground));
   }
 }
 
@@ -97,8 +98,8 @@
   
   .glass-effect {
     backdrop-filter: blur(10px);
-    background: rgba(239, 246, 224, 0.1);
-    border: 1px solid rgba(239, 246, 224, 0.2);
+    background: hsl(var(--background) / 0.1);
+    border: 1px solid hsl(var(--border) / 0.2);
   }
 }
 

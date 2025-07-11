@@ -44,24 +44,20 @@ const BottomNavigation = () => {
   };
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-card/95 backdrop-blur-xl border-t border-border shadow-2xl z-50">
-      <div className="flex justify-around items-center py-3 px-4 max-w-lg mx-auto">
+    <nav className="fixed bottom-0 left-0 right-0 bg-card border-t border-border shadow-lg z-50">
+      <div className="flex justify-around items-center py-2 px-4 max-w-lg mx-auto">
         {navItems.map((item) => {
           const IconComponent = item.icon;
           return (
             <Link
               key={item.path}
               to={item.path}
-              className={`relative flex flex-col items-center p-3 rounded-2xl transition-all duration-300 ${
+              className={`flex flex-col items-center p-3 rounded-lg transition-all duration-200 ${
                 item.isSpecial
-                  ? `transform ${isCreatePressed ? 'scale-95' : 'scale-100'} ${
-                      isActive(item.path) 
-                        ? `bg-primary shadow-2xl animate-glow` 
-                        : `bg-primary hover:bg-primary/90 hover:shadow-xl hover:scale-110`
-                    }`
+                  ? `bg-primary text-primary-foreground shadow-lg hover:bg-primary/90`
                   : isActive(item.path)
-                  ? `bg-primary text-primary-foreground shadow-lg animate-bounce-gentle`
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                  ? `bg-primary text-primary-foreground shadow-md`
+                  : "text-foreground hover:text-primary hover:bg-secondary/50"
               }`}
               onTouchStart={() => item.isSpecial && setIsCreatePressed(true)}
               onTouchEnd={() => item.isSpecial && setIsCreatePressed(false)}
@@ -69,32 +65,12 @@ const BottomNavigation = () => {
               onMouseUp={() => item.isSpecial && setIsCreatePressed(false)}
               onMouseLeave={() => item.isSpecial && setIsCreatePressed(false)}
             >
-              {/* Special floating effect for create button */}
-              {item.isSpecial && (
-                <div className={`absolute -top-4 left-1/2 transform -translate-x-1/2 w-14 h-14 rounded-full bg-primary flex items-center justify-center shadow-2xl animate-float`}>
-                  <Plus className="w-6 h-6 text-primary-foreground font-bold" strokeWidth={3} />
-                </div>
-              )}
-              
-              {/* Regular navigation items */}
-              {!item.isSpecial && (
-                <>
-                  <div className={`flex items-center justify-center mb-1 ${isActive(item.path) ? 'animate-bounce-gentle' : ''}`}>
-                    <IconComponent size={22} className="transition-all duration-300" />
-                  </div>
-                  <span className={`text-xs font-bold transition-all duration-300`}>
-                    {item.label}
-                  </span>
-                  {isActive(item.path) && (
-                    <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-primary-foreground rounded-full animate-pulse-soft"></div>
-                  )}
-                </>
-              )}
-              
-              {/* Create button label */}
-              {item.isSpecial && (
-                <span className="text-xs font-bold mt-4 text-muted-foreground">{item.label}</span>
-              )}
+              <div className="flex items-center justify-center mb-1">
+                <IconComponent size={20} className="transition-all duration-200" />
+              </div>
+              <span className="text-xs font-medium">
+                {item.label}
+              </span>
             </Link>
           );
         })}

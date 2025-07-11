@@ -35,7 +35,7 @@ const Profile = ({ onLogout }: ProfileProps) => {
     {
       id: 1,
       title: "Local Market Update",
-      content: "New vegetable market opened near the temple...",
+      content: "New vegetable market opened near the temple. Fresh produce available daily from 6 AM to 8 PM.",
       category: "news",
       likes: 12,
       comments: 5,
@@ -44,7 +44,7 @@ const Profile = ({ onLogout }: ProfileProps) => {
     {
       id: 2,
       title: "Community Clean-up Drive",
-      content: "Let's organize a community clean-up this weekend...",
+      content: "Let's organize a community clean-up this weekend at the local park. Bring your own gloves and bags!",
       category: "event",
       likes: 18,
       comments: 8,
@@ -90,17 +90,17 @@ const Profile = ({ onLogout }: ProfileProps) => {
       <div className="min-h-screen bg-background p-4">
         <div className="max-w-md mx-auto pt-8">
           {/* Profile Header */}
-          <Card className="mb-6 shadow-lg border-0 bg-card">
+          <Card className="mb-6 shadow-lg bg-card border-border">
             <CardContent className="pt-6">
               <div className="flex flex-col items-center text-center">
                 <Avatar className="h-20 w-20 mb-4 ring-4 ring-primary/20">
                   <AvatarImage src={userProfile.avatar} alt={userProfile.name} />
-                  <AvatarFallback className="bg-gradient-to-r from-primary to-accent text-primary-foreground text-lg font-bold">
+                  <AvatarFallback className="bg-primary text-primary-foreground text-lg font-bold">
                     {userProfile.name.split(' ').map(n => n[0]).join('')}
                   </AvatarFallback>
                 </Avatar>
                 
-                <h1 className="text-xl font-bold text-card-foreground mb-1">{userProfile.name}</h1>
+                <h1 className="text-xl font-bold text-foreground mb-1">{userProfile.name}</h1>
                 <p className="text-muted-foreground text-sm mb-2">{userProfile.bio}</p>
                 
                 <div className="flex items-center text-muted-foreground text-sm mb-2">
@@ -115,15 +115,15 @@ const Profile = ({ onLogout }: ProfileProps) => {
                 
                 <div className="flex space-x-6 mb-4">
                   <div className="text-center">
-                    <div className="text-lg font-bold text-card-foreground">{userProfile.stats.posts}</div>
+                    <div className="text-lg font-bold text-foreground">{userProfile.stats.posts}</div>
                     <div className="text-xs text-muted-foreground">Posts</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-lg font-bold text-card-foreground">{userProfile.stats.communities}</div>
+                    <div className="text-lg font-bold text-foreground">{userProfile.stats.communities}</div>
                     <div className="text-xs text-muted-foreground">Communities</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-lg font-bold text-card-foreground">{userProfile.stats.following}</div>
+                    <div className="text-lg font-bold text-foreground">{userProfile.stats.following}</div>
                     <div className="text-xs text-muted-foreground">Following</div>
                   </div>
                 </div>
@@ -141,19 +141,19 @@ const Profile = ({ onLogout }: ProfileProps) => {
 
           {/* Tabs */}
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-4 mb-4 bg-card">
-              <TabsTrigger value="posts" className="text-card-foreground">Posts</TabsTrigger>
-              <TabsTrigger value="communities" className="text-card-foreground">Communities</TabsTrigger>
-              <TabsTrigger value="following" className="text-card-foreground">Following</TabsTrigger>
-              <TabsTrigger value="settings" className="text-card-foreground">Settings</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-4 mb-4 bg-card border border-border">
+              <TabsTrigger value="posts" className="text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Posts</TabsTrigger>
+              <TabsTrigger value="communities" className="text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Communities</TabsTrigger>
+              <TabsTrigger value="following" className="text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Following</TabsTrigger>
+              <TabsTrigger value="settings" className="text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Settings</TabsTrigger>
             </TabsList>
 
             <TabsContent value="posts" className="space-y-4">
               {myPosts.map((post) => (
-                <Card key={post.id} className="shadow-md border-0 bg-card">
+                <Card key={post.id} className="shadow-md bg-card border-border">
                   <CardContent className="p-4">
                     <div className="flex justify-between items-start mb-2">
-                      <h3 className="font-semibold text-card-foreground">{post.title}</h3>
+                      <h3 className="font-semibold text-foreground">{post.title}</h3>
                       <Badge variant="secondary" className="text-xs bg-secondary text-secondary-foreground">
                         {post.category}
                       </Badge>
@@ -173,11 +173,11 @@ const Profile = ({ onLogout }: ProfileProps) => {
 
             <TabsContent value="communities" className="space-y-4">
               {joinedCommunities.map((community) => (
-                <Card key={community.id} className="shadow-md border-0 bg-card">
+                <Card key={community.id} className="shadow-md bg-card border-border">
                   <CardContent className="p-4">
                     <div className="flex justify-between items-start">
                       <div>
-                        <h3 className="font-semibold text-card-foreground">{community.name}</h3>
+                        <h3 className="font-semibold text-foreground">{community.name}</h3>
                         <p className="text-muted-foreground text-sm flex items-center mt-1">
                           <Users className="h-4 w-4 mr-1" />
                           {community.members} members
@@ -195,7 +195,7 @@ const Profile = ({ onLogout }: ProfileProps) => {
 
             <TabsContent value="following" className="space-y-4">
               {followingList.map((person) => (
-                <Card key={person.id} className="shadow-md border-0 bg-card">
+                <Card key={person.id} className="shadow-md bg-card border-border">
                   <CardContent className="p-4">
                     <div className="flex items-center space-x-3">
                       <Avatar className="h-12 w-12">
@@ -205,13 +205,13 @@ const Profile = ({ onLogout }: ProfileProps) => {
                         </AvatarFallback>
                       </Avatar>
                       <div className="flex-1">
-                        <h3 className="font-semibold text-card-foreground">{person.name}</h3>
+                        <h3 className="font-semibold text-foreground">{person.name}</h3>
                         <p className="text-muted-foreground text-sm flex items-center">
                           <MapPin className="h-3 w-3 mr-1" />
                           {person.location}
                         </p>
                       </div>
-                      <Button variant="outline" size="sm" className="border-border">
+                      <Button variant="outline" size="sm" className="border-border text-foreground hover:bg-secondary">
                         Following
                       </Button>
                     </div>
@@ -221,13 +221,13 @@ const Profile = ({ onLogout }: ProfileProps) => {
             </TabsContent>
 
             <TabsContent value="settings" className="space-y-4">
-              <Card className="shadow-md border-0 bg-card">
+              <Card className="shadow-md bg-card border-border">
                 <CardContent className="p-4 space-y-4">
-                  <Button variant="outline" className="w-full justify-start border-border text-card-foreground hover:bg-muted">
+                  <Button variant="outline" className="w-full justify-start border-border text-foreground hover:bg-secondary">
                     <Settings className="h-4 w-4 mr-2" />
                     Account Settings
                   </Button>
-                  <Button variant="outline" className="w-full justify-start border-border text-card-foreground hover:bg-muted">
+                  <Button variant="outline" className="w-full justify-start border-border text-foreground hover:bg-secondary">
                     <FileText className="h-4 w-4 mr-2" />
                     Privacy Policy
                   </Button>
