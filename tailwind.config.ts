@@ -56,6 +56,11 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				'blue-dark': 'hsl(10 17 40)', /* #0a1128 */
+				'blue-navy': 'hsl(0 31 84)', /* #001f54 */
+				'blue-medium': 'hsl(3 64 120)', /* #034078 */
+				'blue-light': 'hsl(18 130 162)', /* #1282a2 */
+				'cream': 'hsl(254 252 251)', /* #fefcfb */
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -65,11 +70,11 @@ export default {
 			backgroundImage: {
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
 				'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-				'gradient-primary': 'linear-gradient(135deg, #124559 0%, #598392 100%)',
-				'gradient-secondary': 'linear-gradient(135deg, #AEC3B0 0%, #EFF6E0 100%)',
-				'gradient-success': 'linear-gradient(135deg, #598392 0%, #AEC3B0 100%)',
-				'gradient-warning': 'linear-gradient(135deg, #124559 0%, #598392 100%)',
-				'gradient-danger': 'linear-gradient(135deg, #01161E 0%, #124559 100%)',
+				'gradient-primary': 'linear-gradient(135deg, #034078 0%, #1282a2 100%)',
+				'gradient-secondary': 'linear-gradient(135deg, #1282a2 0%, #fefcfb 100%)',
+				'gradient-success': 'linear-gradient(135deg, #034078 0%, #1282a2 100%)',
+				'gradient-warning': 'linear-gradient(135deg, #001f54 0%, #034078 100%)',
+				'gradient-danger': 'linear-gradient(135deg, #0a1128 0%, #001f54 100%)',
 			},
 			keyframes: {
 				'accordion-down': {

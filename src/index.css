@@ -7,65 +7,65 @@
 
 @layer base {
   :root {
-    --background: 239 246 224; /* #EFF6E0 - Light cream */
+    --background: 254 252 251; /* #fefcfb - Off-white cream */
     --foreground: 0 0 0; /* #000000 - Black text */
 
-    --card: 255 255 255; /* White cards */
+    --card: 254 252 251; /* Off-white cards */
     --card-foreground: 0 0 0; /* Black text on cards */
 
-    --popover: 255 255 255;
+    --popover: 254 252 251;
     --popover-foreground: 0 0 0;
 
-    --primary: 18 69 89; /* #124559 - Dark teal */
-    --primary-foreground: 239 246 224; /* Light text on primary */
+    --primary: 3 64 120; /* #034078 - Medium blue */
+    --primary-foreground: 254 252 251; /* Light text on primary */
 
-    --secondary: 174 195 176; /* #AEC3B0 - Light green */
+    --secondary: 18 130 162; /* #1282a2 - Light blue */
     --secondary-foreground: 0 0 0; /* Black text on secondary */
 
-    --muted: 89 131 146; /* #598392 - Medium teal */
-    --muted-foreground: 0 0 0; /* Black text on muted */
+    --muted: 0 31 84; /* #001f54 - Dark blue */
+    --muted-foreground: 254 252 251; /* Light text on muted */
 
-    --accent: 89 131 146; /* #598392 */
-    --accent-foreground: 239 246 224;
+    --accent: 18 130 162; /* #1282a2 - Light blue */
+    --accent-foreground: 0 0 0;
 
     --destructive: 220 38 38;
-    --destructive-foreground: 239 246 224;
+    --destructive-foreground: 254 252 251;
 
-    --border: 174 195 176; /* #AEC3B0 */
-    --input: 239 246 224; /* #EFF6E0 */
-    --ring: 18 69 89; /* #124559 */
+    --border: 18 130 162; /* #1282a2 */
+    --input: 254 252 251; /* #fefcfb */
+    --ring: 3 64 120; /* #034078 */
 
     --radius: 0.75rem;
   }
 
   .dark {
-    --background: 1 22 30; /* #01161E - Dark background */
-    --foreground: 239 246 224; /* Light text in dark mode */
+    --background: 10 17 40; /* #0a1128 - Very dark blue */
+    --foreground: 254 252 251; /* Light text in dark mode */
 
-    --card: 18 69 89; /* #124559 */
-    --card-foreground: 239 246 224;
+    --card: 0 31 84; /* #001f54 */
+    --card-foreground: 254 252 251;
 
-    --popover: 18 69 89;
-    --popover-foreground: 239 246 224;
+    --popover: 0 31 84;
+    --popover-foreground: 254 252 251;
 
-    --primary: 89 131 146; /* #598392 */
-    --primary-foreground: 239 246 224;
+    --primary: 18 130 162; /* #1282a2 */
+    --primary-foreground: 254 252 251;
 
-    --secondary: 18 69 89;
-    --secondary-foreground: 239 246 224;
+    --secondary: 3 64 120;
+    --secondary-foreground: 254 252 251;
 
-    --muted: 89 131 146;
-    --muted-foreground: 174 195 176;
+    --muted: 3 64 120;
+    --muted-foreground: 18 130 162;
 
-    --accent: 174 195 176; /* #AEC3B0 */
-    --accent-foreground: 1 22 30;
+    --accent: 18 130 162; /* #1282a2 */
+    --accent-foreground: 10 17 40;
 
     --destructive: 239 68 68;
-    --destructive-foreground: 239 246 224;
+    --destructive-foreground: 254 252 251;
 
-    --border: 89 131 146;
-    --input: 89 131 146;
-    --ring: 174 195 176;
+    --border: 3 64 120;
+    --input: 3 64 120;
+    --ring: 18 130 162;
   }
 }
 
