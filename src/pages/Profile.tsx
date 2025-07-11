@@ -154,7 +154,7 @@ const Profile = ({ onLogout }: ProfileProps) => {
                   <CardContent className="p-4">
                     <div className="flex justify-between items-start mb-2">
                       <h3 className="font-semibold text-card-foreground">{post.title}</h3>
-                      <Badge variant="secondary" className="text-xs bg-primary/10 text-primary">
+                      <Badge variant="secondary" className="text-xs bg-secondary text-secondary-foreground">
                         {post.category}
                       </Badge>
                     </div>

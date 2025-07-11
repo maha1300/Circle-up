@@ -88,28 +88,28 @@ const Communities = () => {
   };
 
   const categoryColors = {
-    Residential: "bg-blue-100 text-blue-700",
-    Official: "bg-green-100 text-green-700", 
-    Professional: "bg-purple-100 text-purple-700",
-    Events: "bg-orange-100 text-orange-700",
-    Environment: "bg-emerald-100 text-emerald-700"
+    Residential: "bg-primary/10 text-primary",
+    Official: "bg-accent/10 text-accent-foreground", 
+    Professional: "bg-secondary/10 text-secondary-foreground",
+    Events: "bg-muted/10 text-muted-foreground",
+    Environment: "bg-accent/10 text-accent-foreground"
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-white/80 backdrop-blur-sm border-b border-gray-200/50 sticky top-0 z-40">
+      <div className="bg-card border-b border-border sticky top-0 z-40">
         <div className="px-4 py-4">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Communities 🌐</h1>
+          <h1 className="text-2xl font-bold text-card-foreground mb-4">Communities 🌐</h1>
           
           {/* Search */}
           <div className="relative">
-            <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+            <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
             <Input
               placeholder="Search communities or locations..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 h-12 bg-white/70 border-gray-200"
+              className="pl-10 h-12 bg-input border-border"
             />
           </div>
         </div>
@@ -120,18 +120,18 @@ const Communities = () => {
         {/* My Communities Section */}
         {joinedCommunities.length > 0 && (
           <div className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">My Communities</h2>
+            <h2 className="text-lg font-semibold text-foreground mb-4">My Communities</h2>
             <div className="space-y-4">
               {filteredCommunities
                 .filter(community => joinedCommunities.includes(community.id))
                 .map((community) => (
-                  <Card key={community.id} className="bg-gradient-to-r from-community-blue/5 to-community-purple/5 border-community-blue/20">
+                  <Card key={community.id} className="bg-primary/5 border-primary/20 shadow-lg">
                     <CardContent className="p-4">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-3 flex-1">
                           <Avatar className="w-12 h-12">
                             <AvatarImage src={community.avatar.startsWith('http') ? community.avatar : undefined} />
-                            <AvatarFallback className="bg-gradient-to-br from-community-blue to-community-purple text-white">
+                            <AvatarFallback className="bg-gradient-to-br from-primary to-accent text-primary-foreground">
                               {community.avatar.startsWith('http') ? 
                                 community.name.split(' ').map(n => n[0]).join('') : 
                                 community.avatar
@@ -140,17 +140,17 @@ const Communities = () => {
                           </Avatar>
                           <div className="flex-1">
                             <Link to={`/communities/${community.id}`}>
-                              <h3 className="font-semibold text-gray-900 hover:text-community-blue transition-colors">
+                              <h3 className="font-semibold text-card-foreground hover:text-primary transition-colors">
                                 {community.name}
                               </h3>
                             </Link>
-                            <p className="text-sm text-gray-600 line-clamp-1">{community.description}</p>
+                            <p className="text-sm text-muted-foreground line-clamp-1">{community.description}</p>
                             <div className="flex items-center space-x-4 mt-1">
-                              <div className="flex items-center space-x-1 text-xs text-gray-500">
+                              <div className="flex items-center space-x-1 text-xs text-muted-foreground">
                                 <MapPin size={12} />
                                 <span>{community.location}</span>
                               </div>
-                              <div className="flex items-center space-x-1 text-xs text-gray-500">
+                              <div className="flex items-center space-x-1 text-xs text-muted-foreground">
                                 <Users size={12} />
                                 <span>{community.members.toLocaleString()}</span>
                               </div>
@@ -161,7 +161,7 @@ const Communities = () => {
                           variant="outline"
                           size="sm"
                           onClick={() => handleJoinCommunity(community.id, community.name)}
-                          className="bg-white/80 text-community-blue border-community-blue hover:bg-community-blue hover:text-white"
+                          className="bg-card text-primary border-primary hover:bg-primary hover:text-primary-foreground"
                         >
                           Joined ✓
                         </Button>
@@ -175,20 +175,20 @@ const Communities = () => {
 
         {/* All Communities Section */}
         <div>
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+          <h2 className="text-lg font-semibold text-foreground mb-4">
             {joinedCommunities.length > 0 ? 'Discover More' : 'All Communities'}
           </h2>
           <div className="space-y-4">
             {filteredCommunities
               .filter(community => !joinedCommunities.includes(community.id))
               .map((community) => (
-                <Card key={community.id} className="bg-white/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300">
+                <Card key={community.id} className="bg-card border-0 shadow-lg hover:shadow-xl transition-all duration-300">
                   <CardContent className="p-4">
                     <div className="flex items-start justify-between">
                       <div className="flex items-start space-x-3 flex-1">
                         <Avatar className="w-12 h-12">
                           <AvatarImage src={community.avatar.startsWith('http') ? community.avatar : undefined} />
-                          <AvatarFallback className="bg-gradient-to-br from-community-green to-community-blue text-white">
+                          <AvatarFallback className="bg-gradient-to-br from-accent to-primary text-primary-foreground">
                             {community.avatar.startsWith('http') ? 
                               community.name.split(' ').map(n => n[0]).join('') : 
                               community.avatar
@@ -197,16 +197,16 @@ const Communities = () => {
                         </Avatar>
                         <div className="flex-1">
                           <div className="flex items-center space-x-2 mb-1">
-                            <h3 className="font-semibold text-gray-900">{community.name}</h3>
+                            <h3 className="font-semibold text-card-foreground">{community.name}</h3>
                             <Badge 
                               className={`${categoryColors[community.category as keyof typeof categoryColors]} border-0 text-xs`}
                             >
                               {community.category}
                             </Badge>
                           </div>
-                          <p className="text-sm text-gray-600 mb-2">{community.description}</p>
+                          <p className="text-sm text-muted-foreground mb-2">{community.description}</p>
                           <div className="flex items-center justify-between">
-                            <div className="flex items-center space-x-4 text-xs text-gray-500">
+                            <div className="flex items-center space-x-4 text-xs text-muted-foreground">
                               <div className="flex items-center space-x-1">
                                 <MapPin size={12} />
                                 <span>{community.location}</span>
@@ -216,7 +216,7 @@ const Communities = () => {
                                 <span>{community.members.toLocaleString()} members</span>
                               </div>
                             </div>
-                            <div className="text-xs text-community-blue font-medium">
+                            <div className="text-xs text-primary font-medium">
                               {community.recentActivity}
                             </div>
                           </div>
@@ -225,7 +225,7 @@ const Communities = () => {
                       <Button
                         size="sm"
                         onClick={() => handleJoinCommunity(community.id, community.name)}
-                        className="bg-gradient-to-r from-community-blue to-community-purple hover:from-community-purple hover:to-community-blue text-white"
+                        className="bg-gradient-to-r from-primary to-accent hover:from-accent hover:to-primary text-primary-foreground"
                       >
                         Join
                       </Button>
@@ -236,10 +236,10 @@ const Communities = () => {
           </div>
 
           {filteredCommunities.length === 0 && (
-            <Card className="p-8 text-center bg-white/50">
+            <Card className="p-8 text-center bg-card">
               <div className="text-6xl mb-4">🔍</div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">No communities found</h3>
-              <p className="text-gray-600">Try adjusting your search terms</p>
+              <h3 className="text-lg font-semibold text-card-foreground mb-2">No communities found</h3>
+              <p className="text-muted-foreground">Try adjusting your search terms</p>
             </Card>
           )}
         </div>

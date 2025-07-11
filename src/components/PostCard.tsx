@@ -29,9 +29,10 @@ interface Post {
 
 interface PostCardProps {
   post: Post;
+  onPostClick?: (post: Post) => void;
 }
 
-const PostCard = ({ post }: PostCardProps) => {
+const PostCard = ({ post, onPostClick }: PostCardProps) => {
   const [isLiked, setIsLiked] = useState(post.isLiked);
   const [likes, setLikes] = useState(post.likes);
   const [showComments, setShowComments] = useState(false);
@@ -39,43 +40,43 @@ const PostCard = ({ post }: PostCardProps) => {
 
   const categoryConfig = {
     alert: { 
-      gradient: "from-red-500 via-orange-500 to-amber-500", 
+      gradient: "from-destructive via-destructive/80 to-destructive/60", 
       icon: "⚡", 
-      bgColor: "bg-gradient-to-r from-red-50 to-orange-50",
-      textColor: "text-red-700"
+      bgColor: "bg-destructive/10",
+      textColor: "text-destructive"
     },
     event: { 
-      gradient: "from-blue-500 via-cyan-500 to-teal-500", 
+      gradient: "from-primary via-primary/80 to-primary/60", 
       icon: "🎊", 
-      bgColor: "bg-gradient-to-r from-blue-50 to-cyan-50",
-      textColor: "text-blue-700"
+      bgColor: "bg-primary/10",
+      textColor: "text-primary"
     },
     scheme: { 
-      gradient: "from-green-500 via-emerald-500 to-lime-500", 
+      gradient: "from-accent via-accent/80 to-accent/60", 
       icon: "🎁", 
-      bgColor: "bg-gradient-to-r from-green-50 to-emerald-50",
-      textColor: "text-green-700"
+      bgColor: "bg-accent/10",
+      textColor: "text-accent-foreground"
     },
     weather: { 
-      gradient: "from-orange-500 via-amber-500 to-rose-500", 
+      gradient: "from-muted via-muted/80 to-muted/60", 
       icon: "🌈", 
-      bgColor: "bg-gradient-to-r from-orange-50 to-amber-50",
-      textColor: "text-orange-700"
+      bgColor: "bg-muted/10",
+      textColor: "text-muted-foreground"
     },
     news: { 
-      gradient: "from-purple-500 via-violet-500 to-indigo-500", 
+      gradient: "from-secondary via-secondary/80 to-secondary/60", 
       icon: "📢", 
-      bgColor: "bg-gradient-to-r from-purple-50 to-violet-50",
-      textColor: "text-purple-700"
+      bgColor: "bg-secondary/10",
+      textColor: "text-secondary-foreground"
     }
   };
 
   const config = categoryConfig[post.category as keyof typeof categoryConfig] || 
     { 
-      gradient: "from-slate-500 to-slate-600", 
+      gradient: "from-muted to-muted/60", 
       icon: "📝", 
-      bgColor: "bg-gradient-to-r from-slate-50 to-gray-50",
-      textColor: "text-slate-700"
+      bgColor: "bg-muted/10",
+      textColor: "text-muted-foreground"
     };
 
   const handleLike = () => {
@@ -92,17 +93,23 @@ const PostCard = ({ post }: PostCardProps) => {
     setShowShare(true);
   };
 
+  const handlePostClick = () => {
+    if (onPostClick) {
+      onPostClick(post);
+    }
+  };
+
   return (
     <>
-      <Card className="bg-white/90 backdrop-blur-lg border-0 shadow-xl hover:shadow-2xl transition-all duration-500 animate-fade-in hover:scale-[1.02] overflow-hidden">
+      <Card className="bg-card backdrop-blur-lg border-0 shadow-xl hover:shadow-2xl transition-all duration-500 animate-fade-in hover:scale-[1.02] overflow-hidden cursor-pointer" onClick={handlePostClick}>
         <div className={`h-1 w-full bg-gradient-to-r ${config.gradient}`}></div>
         <CardContent className="p-5">
           {/* Author Header */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-3">
-              <Avatar className="w-12 h-12 ring-2 ring-white shadow-lg">
+              <Avatar className="w-12 h-12 ring-2 ring-card shadow-lg">
                 <AvatarImage src={post.author.avatar.startsWith('http') ? post.author.avatar : undefined} />
-                <AvatarFallback className={`bg-gradient-to-br ${config.gradient} text-white font-bold`}>
+                <AvatarFallback className={`bg-gradient-to-br ${config.gradient} text-primary-foreground font-bold`}>
                   {post.author.avatar.startsWith('http') ? 
                     post.author.name.split(' ').map(n => n[0]).join('') : 
                     post.author.avatar
@@ -111,21 +118,21 @@ const PostCard = ({ post }: PostCardProps) => {
               </Avatar>
               <div>
                 <div className="flex items-center space-x-2">
-                  <h3 className="font-bold text-[#212121]">{post.author.name}</h3>
+                  <h3 className="font-bold text-card-foreground">{post.author.name}</h3>
                   {post.author.isOfficial && (
-                    <Badge className="bg-gradient-to-r from-[#1E88E5] to-[#43A047] text-white text-xs border-0 animate-pulse-soft">
+                    <Badge className="bg-gradient-to-r from-primary to-accent text-primary-foreground text-xs border-0 animate-pulse-soft">
                       <Sparkles className="w-3 h-3 mr-1" />
                       Official
                     </Badge>
                   )}
                 </div>
-                <div className="flex items-center space-x-4 text-xs text-[#757575]">
+                <div className="flex items-center space-x-4 text-xs text-muted-foreground">
                   <div className="flex items-center space-x-1">
-                    <Clock size={12} className="text-[#1E88E5]" />
+                    <Clock size={12} className="text-primary" />
                     <span>{post.timestamp}</span>
                   </div>
                   <div className="flex items-center space-x-1">
-                    <MapPin size={12} className="text-[#43A047]" />
+                    <MapPin size={12} className="text-accent" />
                     <span>{post.location}</span>
                   </div>
                 </div>
@@ -140,7 +147,7 @@ const PostCard = ({ post }: PostCardProps) => {
 
           {/* Content */}
           <div className="mb-4">
-            <p className="text-[#212121] leading-relaxed font-medium">{post.content}</p>
+            <p className="text-card-foreground leading-relaxed font-medium">{post.content}</p>
             {post.image && (
               <div className="mt-4 rounded-xl overflow-hidden shadow-lg">
                 <img 
@@ -153,22 +160,25 @@ const PostCard = ({ post }: PostCardProps) => {
           </div>
 
           {/* Actions */}
-          <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+          <div className="flex items-center justify-between pt-4 border-t border-border">
             <div className="flex items-center space-x-6">
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={handleLike}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleLike();
+                }}
                 className={`flex items-center space-x-2 transition-all duration-300 ${
                   isLiked 
-                    ? 'text-pink-600 bg-pink-50 hover:bg-pink-100 animate-bounce-gentle' 
-                    : 'text-[#757575] hover:bg-pink-50 hover:text-pink-600'
+                    ? 'text-destructive bg-destructive/10 hover:bg-destructive/20 animate-bounce-gentle' 
+                    : 'text-muted-foreground hover:bg-destructive/10 hover:text-destructive'
                 }`}
               >
                 <Heart 
                   size={18} 
                   className={`transition-all duration-300 ${
-                    isLiked ? 'fill-current text-pink-600 scale-125' : ''
+                    isLiked ? 'fill-current text-destructive scale-125' : ''
                   }`} 
                 />
                 <span className="font-bold">{likes}</span>
@@ -177,8 +187,11 @@ const PostCard = ({ post }: PostCardProps) => {
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={handleComment}
-                className="flex items-center space-x-2 text-[#757575] hover:bg-blue-50 hover:text-[#1E88E5] transition-all duration-300"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleComment();
+                }}
+                className="flex items-center space-x-2 text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all duration-300"
               >
                 <MessageCircle size={18} />
                 <span className="font-bold">{post.comments}</span>
@@ -187,8 +200,11 @@ const PostCard = ({ post }: PostCardProps) => {
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={handleShare}
-                className="flex items-center space-x-2 text-[#757575] hover:bg-green-50 hover:text-[#43A047] transition-all duration-300"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleShare();
+                }}
+                className="flex items-center space-x-2 text-muted-foreground hover:bg-accent/10 hover:text-accent transition-all duration-300"
               >
                 <Share size={18} />
                 <span className="font-bold">{post.shares}</span>

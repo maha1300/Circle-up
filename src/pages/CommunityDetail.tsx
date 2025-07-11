@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -5,13 +6,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Users, MapPin, Calendar, Plus, Bell, Share } from "lucide-react";
+import { Users, MapPin, Calendar, Plus, Bell, BellOff, Share } from "lucide-react";
 import PostCard from "@/components/PostCard";
 import { useToast } from "@/hooks/use-toast";
 
 const CommunityDetail = () => {
   const { id } = useParams();
   const [isJoined, setIsJoined] = useState(false);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [activeTab, setActiveTab] = useState("posts");
   const { toast } = useToast();
 
@@ -108,26 +110,52 @@ const CommunityDetail = () => {
     });
   };
 
+  const handleNotificationToggle = () => {
+    setNotificationsEnabled(!notificationsEnabled);
+    toast({
+      title: notificationsEnabled ? "Notifications disabled" : "Notifications enabled",
+      description: notificationsEnabled 
+        ? "You won't receive notifications from this community" 
+        : "You'll now receive notifications from this community",
+    });
+  };
+
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: community.name,
+        text: community.description,
+        url: window.location.href,
+      });
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      toast({
+        title: "Link copied!",
+        description: "Community link has been copied to clipboard",
+      });
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 p-4">
+    <div className="min-h-screen bg-background p-4">
       <div className="max-w-md mx-auto pt-8">
         {/* Community Header */}
-        <Card className="mb-6 shadow-lg border-0">
+        <Card className="mb-6 shadow-lg border-0 bg-card">
           <CardHeader className="pb-3">
             <div className="flex items-center space-x-4">
-              <Avatar className="h-16 w-16 ring-4 ring-community-blue/20">
+              <Avatar className="h-16 w-16 ring-4 ring-primary/20">
                 <AvatarImage src={community.image} alt={community.name} />
-                <AvatarFallback className="bg-gradient-to-r from-community-blue to-community-purple text-white text-lg font-bold">
+                <AvatarFallback className="bg-gradient-to-r from-primary to-accent text-primary-foreground text-lg font-bold">
                   {community.name.split(' ').map(n => n[0]).join('')}
                 </AvatarFallback>
               </Avatar>
               <div className="flex-1">
-                <h1 className="text-xl font-bold text-slate-800">{community.name}</h1>
-                <div className="flex items-center text-slate-600 text-sm mt-1">
+                <h1 className="text-xl font-bold text-card-foreground">{community.name}</h1>
+                <div className="flex items-center text-muted-foreground text-sm mt-1">
                   <Users className="h-4 w-4 mr-1" />
                   {community.members} members
                 </div>
-                <div className="flex items-center text-slate-600 text-sm">
+                <div className="flex items-center text-muted-foreground text-sm">
                   <MapPin className="h-4 w-4 mr-1" />
                   {community.location}
                 </div>
@@ -135,17 +163,17 @@ const CommunityDetail = () => {
             </div>
           </CardHeader>
           <CardContent className="pt-0">
-            <p className="text-slate-600 text-sm mb-4">{community.description}</p>
+            <p className="text-card-foreground text-sm mb-4">{community.description}</p>
             <div className="flex space-x-2 mb-4">
-              <Badge variant="secondary">{community.category}</Badge>
-              <Badge variant="outline">Est. {community.established}</Badge>
+              <Badge variant="secondary" className="bg-secondary text-secondary-foreground">{community.category}</Badge>
+              <Badge variant="outline" className="border-border">Est. {community.established}</Badge>
             </div>
             <div className="flex space-x-2">
               <Button 
                 onClick={handleJoin}
                 className={`flex-1 ${isJoined 
-                  ? 'bg-slate-200 text-slate-700 hover:bg-slate-300' 
-                  : 'bg-gradient-to-r from-community-blue to-community-purple hover:from-community-blue/90 hover:to-community-purple/90 text-white'
+                  ? 'bg-secondary text-secondary-foreground hover:bg-secondary/90' 
+                  : 'bg-primary text-primary-foreground hover:bg-primary/90'
                 } transition-all duration-200`}
               >
                 {isJoined ? (
@@ -160,10 +188,15 @@ const CommunityDetail = () => {
                   </>
                 )}
               </Button>
-              <Button variant="outline" size="icon">
-                <Bell className="h-4 w-4" />
+              <Button 
+                variant="outline" 
+                size="icon"
+                onClick={handleNotificationToggle}
+                className={`border-border ${notificationsEnabled ? 'bg-accent text-accent-foreground' : ''}`}
+              >
+                {notificationsEnabled ? <Bell className="h-4 w-4" /> : <BellOff className="h-4 w-4" />}
               </Button>
-              <Button variant="outline" size="icon">
+              <Button variant="outline" size="icon" onClick={handleShare} className="border-border">
                 <Share className="h-4 w-4" />
               </Button>
             </div>
@@ -172,11 +205,11 @@ const CommunityDetail = () => {
 
         {/* Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-4 mb-4">
-            <TabsTrigger value="posts">Posts</TabsTrigger>
-            <TabsTrigger value="events">Events</TabsTrigger>
-            <TabsTrigger value="news">News</TabsTrigger>
-            <TabsTrigger value="schemes">Schemes</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-4 mb-4 bg-card">
+            <TabsTrigger value="posts" className="text-card-foreground">Posts</TabsTrigger>
+            <TabsTrigger value="events" className="text-card-foreground">Events</TabsTrigger>
+            <TabsTrigger value="news" className="text-card-foreground">News</TabsTrigger>
+            <TabsTrigger value="schemes" className="text-card-foreground">Schemes</TabsTrigger>
           </TabsList>
 
           <TabsContent value="posts" className="space-y-4">
@@ -187,13 +220,13 @@ const CommunityDetail = () => {
 
           <TabsContent value="events" className="space-y-4">
             {events.map((event) => (
-              <Card key={event.id} className="shadow-md border-0">
+              <Card key={event.id} className="shadow-md border-0 bg-card">
                 <CardContent className="p-4">
                   <div className="flex justify-between items-start mb-2">
-                    <h3 className="font-semibold text-slate-800">{event.title}</h3>
-                    <Badge className="bg-blue-100 text-blue-700">🎉 Event</Badge>
+                    <h3 className="font-semibold text-card-foreground">{event.title}</h3>
+                    <Badge className="bg-accent text-accent-foreground">🎉 Event</Badge>
                   </div>
-                  <div className="space-y-2 text-sm text-slate-600">
+                  <div className="space-y-2 text-sm text-muted-foreground">
                     <div className="flex items-center">
                       <Calendar className="h-4 w-4 mr-2" />
                       {event.date}
@@ -207,8 +240,8 @@ const CommunityDetail = () => {
                       {event.attendees} attending
                     </div>
                   </div>
-                  <p className="text-slate-600 text-sm mt-3">{event.description}</p>
-                  <Button size="sm" className="mt-3 bg-community-blue hover:bg-community-blue/90">
+                  <p className="text-card-foreground text-sm mt-3">{event.description}</p>
+                  <Button size="sm" className="mt-3 bg-primary hover:bg-primary/90 text-primary-foreground">
                     Join Event
                   </Button>
                 </CardContent>
@@ -218,23 +251,23 @@ const CommunityDetail = () => {
 
           <TabsContent value="news" className="space-y-4">
             <div className="text-center py-8">
-              <h3 className="text-lg font-semibold text-slate-400 mb-2">No news updates</h3>
-              <p className="text-slate-400">Community news will appear here</p>
+              <h3 className="text-lg font-semibold text-muted-foreground mb-2">No news updates</h3>
+              <p className="text-muted-foreground">Community news will appear here</p>
             </div>
           </TabsContent>
 
           <TabsContent value="schemes" className="space-y-4">
             {schemes.map((scheme) => (
-              <Card key={scheme.id} className="shadow-md border-0">
+              <Card key={scheme.id} className="shadow-md border-0 bg-card">
                 <CardContent className="p-4">
                   <div className="flex justify-between items-start mb-2">
-                    <h3 className="font-semibold text-slate-800">{scheme.title}</h3>
-                    <Badge className="bg-green-100 text-green-700">🎁 {scheme.status}</Badge>
+                    <h3 className="font-semibold text-card-foreground">{scheme.title}</h3>
+                    <Badge className="bg-accent text-accent-foreground">🎁 {scheme.status}</Badge>
                   </div>
-                  <p className="text-slate-600 text-sm mb-3">{scheme.description}</p>
+                  <p className="text-muted-foreground text-sm mb-3">{scheme.description}</p>
                   <div className="flex justify-between items-center">
-                    <span className="text-xs text-slate-500">Deadline: {scheme.deadline}</span>
-                    <Button size="sm" variant="outline">
+                    <span className="text-xs text-muted-foreground">Deadline: {scheme.deadline}</span>
+                    <Button size="sm" variant="outline" className="border-border">
                       Learn More
                     </Button>
                   </div>

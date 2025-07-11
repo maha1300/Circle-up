@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff, Mail, Lock, User, MapPin } from "lucide-react";
 import { toast } from "sonner";
 
@@ -13,6 +13,7 @@ interface SignupProps {
 }
 
 const Signup = ({ onSignup }: SignupProps) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -41,16 +42,17 @@ const Signup = ({ onSignup }: SignupProps) => {
 
     setIsLoading(true);
     
-    // Simulate signup
+    // Simulate signup process
     setTimeout(() => {
       setIsLoading(false);
       toast.success("Account created successfully! Welcome to MyCommunityHub!");
       onSignup();
+      navigate('/'); // Navigate to home page
     }, 1500);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-secondary via-muted to-accent flex items-center justify-center p-4">
+    <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <div className="w-full max-w-md animate-fade-in">
         {/* Logo/Brand */}
         <div className="text-center mb-8">
@@ -61,14 +63,14 @@ const Signup = ({ onSignup }: SignupProps) => {
           <p className="text-muted-foreground">Create your account to get started</p>
         </div>
 
-        <Card className="shadow-xl border-0 bg-card/90 backdrop-blur-sm">
+        <Card className="shadow-xl border-0 bg-card">
           <CardHeader className="text-center pb-6">
             <CardTitle className="text-xl text-card-foreground">Create Account</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSignup} className="space-y-5">
               <div className="space-y-2">
-                <Label htmlFor="name">Full Name</Label>
+                <Label htmlFor="name" className="text-card-foreground">Full Name</Label>
                 <div className="relative">
                   <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input
@@ -78,14 +80,14 @@ const Signup = ({ onSignup }: SignupProps) => {
                     value={formData.name}
                     onChange={handleInputChange}
                     placeholder="Enter your full name"
-                    className="pl-10 h-12 bg-input"
+                    className="pl-10 h-12 bg-input border-border"
                     required
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email" className="text-card-foreground">Email</Label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input
@@ -95,14 +97,14 @@ const Signup = ({ onSignup }: SignupProps) => {
                     value={formData.email}
                     onChange={handleInputChange}
                     placeholder="Enter your email"
-                    className="pl-10 h-12 bg-input"
+                    className="pl-10 h-12 bg-input border-border"
                     required
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="location">Location</Label>
+                <Label htmlFor="location" className="text-card-foreground">Location</Label>
                 <div className="relative">
                   <MapPin className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input
@@ -112,14 +114,14 @@ const Signup = ({ onSignup }: SignupProps) => {
                     value={formData.location}
                     onChange={handleInputChange}
                     placeholder="e.g., Thanjavur, Tamil Nadu"
-                    className="pl-10 h-12 bg-input"
+                    className="pl-10 h-12 bg-input border-border"
                     required
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password" className="text-card-foreground">Password</Label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input
@@ -129,7 +131,7 @@ const Signup = ({ onSignup }: SignupProps) => {
                     value={formData.password}
                     onChange={handleInputChange}
                     placeholder="Create a password"
-                    className="pl-10 pr-10 h-12 bg-input"
+                    className="pl-10 pr-10 h-12 bg-input border-border"
                     required
                   />
                   <button
@@ -143,7 +145,7 @@ const Signup = ({ onSignup }: SignupProps) => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
+                <Label htmlFor="confirmPassword" className="text-card-foreground">Confirm Password</Label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input
@@ -153,7 +155,7 @@ const Signup = ({ onSignup }: SignupProps) => {
                     value={formData.confirmPassword}
                     onChange={handleInputChange}
                     placeholder="Confirm your password"
-                    className="pl-10 pr-10 h-12 bg-input"
+                    className="pl-10 pr-10 h-12 bg-input border-border"
                     required
                   />
                   <button
