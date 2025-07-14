@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -18,66 +17,57 @@ import Profile from "./pages/Profile";
 import Search from "./pages/Search";
 import CommunityDetail from "./pages/CommunityDetail";
 import NotFound from "./pages/NotFound";
+import { UserProvider, useUser } from "./contexts/UserContext";
 
 const queryClient = new QueryClient();
 
-const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+const AppContent = () => {
+  const { isAuthenticated } = useUser();
   const [hasSeenOnboarding, setHasSeenOnboarding] = useState(false);
 
   if (!hasSeenOnboarding) {
-    return (
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <Onboarding onComplete={() => setHasSeenOnboarding(true)} />
-          </BrowserRouter>
-        </TooltipProvider>
-      </QueryClientProvider>
-    );
+    return <Onboarding onComplete={() => setHasSeenOnboarding(true)} />;
   }
 
   if (!isAuthenticated) {
     return (
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Login onLogin={() => setIsAuthenticated(true)} />} />
-              <Route path="/login" element={<Login onLogin={() => setIsAuthenticated(true)} />} />
-              <Route path="/signup" element={<Signup onSignup={() => setIsAuthenticated(true)} />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
-              <Route path="*" element={<Login onLogin={() => setIsAuthenticated(true)} />} />
-            </Routes>
-          </BrowserRouter>
-        </TooltipProvider>
-      </QueryClientProvider>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="*" element={<Login />} />
+      </Routes>
     );
   }
 
+  return (
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
+        <Route index element={<Home />} />
+        <Route path="communities" element={<Communities />} />
+        <Route path="communities/:id" element={<CommunityDetail />} />
+        <Route path="create-post" element={<CreatePost />} />
+        <Route path="notifications" element={<Notifications />} />
+        <Route path="profile" element={<Profile />} />
+        <Route path="search" element={<Search />} />
+      </Route>
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+};
+
+const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<MainLayout />}>
-              <Route index element={<Home />} />
-              <Route path="communities" element={<Communities />} />
-              <Route path="communities/:id" element={<CommunityDetail />} />
-              <Route path="create-post" element={<CreatePost />} />
-              <Route path="notifications" element={<Notifications />} />
-              <Route path="profile" element={<Profile onLogout={() => setIsAuthenticated(false)} />} />
-              <Route path="search" element={<Search />} />
-            </Route>
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
+        <UserProvider>
+          <BrowserRouter>
+            <AppContent />
+          </BrowserRouter>
+        </UserProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );

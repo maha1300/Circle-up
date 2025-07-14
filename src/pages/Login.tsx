@@ -7,26 +7,43 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { Eye, EyeOff, Mail, Lock } from "lucide-react";
 import { toast } from "sonner";
+import { useUser } from "@/contexts/UserContext";
 
-interface LoginProps {
-  onLogin: () => void;
-}
-
-const Login = ({ onLogin }: LoginProps) => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const { login } = useUser();
 
-  const handleGoogleLogin = async () => {
-    setIsGoogleLoading(true);
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
     
-    // Simulate Google login
+    // Simulate login process
     setTimeout(() => {
-      setIsGoogleLoading(false);
-      toast.success("Successfully logged in with Google!");
-      onLogin();
-    }, 2000);
+      setIsLoading(false);
+      
+      // Create user data for login (in real app, this would come from API)
+      const userData = {
+        id: '1',
+        name: email.split('@')[0], // Use email prefix as temporary name
+        email: email,
+        location: 'Not added yet',
+        bio: 'Not added yet',
+        avatar: `https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop&crop=face`,
+        joinedDate: 'Joined ' + new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
+        posts: [],
+        stats: {
+          posts: 0,
+          communities: 3,
+          following: 45
+        }
+      };
+      
+      login(userData);
+      toast.success("Successfully logged in!");
+    }, 1500);
   };
 
   return (
@@ -46,24 +63,58 @@ const Login = ({ onLogin }: LoginProps) => {
             <CardTitle className="text-xl text-card-foreground">Sign In</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-6">
-              {/* Google Login */}
+            <form onSubmit={handleLogin} className="space-y-6">
+              <div className="space-y-2">
+                <Label htmlFor="email" className="text-card-foreground">Email</Label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    id="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your email"
+                    className="pl-10 h-12 bg-input border-border"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="password" className="text-card-foreground">Password</Label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter your password"
+                    className="pl-10 pr-10 h-12 bg-input border-border"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-3 text-muted-foreground hover:text-foreground"
+                  >
+                    {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                  </button>
+                </div>
+              </div>
+
               <Button
-                type="button"
-                onClick={handleGoogleLogin}
-                disabled={isGoogleLoading}
-                className="w-full h-12 bg-primary hover:bg-primary/90 text-primary-foreground"
+                type="submit"
+                disabled={isLoading}
+                className="w-full h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
               >
-                {isGoogleLoading ? (
+                {isLoading ? (
                   <div className="flex items-center space-x-2">
                     <div className="animate-spin rounded-full h-4 w-4 border-2 border-primary-foreground border-t-transparent"></div>
-                    <span>Signing in with Google...</span>
+                    <span>Signing in...</span>
                   </div>
                 ) : (
-                  <>
-                    <span className="mr-2">📧</span>
-                    Continue with Google
-                  </>
+                  "Sign In"
                 )}
               </Button>
 
@@ -76,7 +127,7 @@ const Login = ({ onLogin }: LoginProps) => {
                   Sign Up
                 </Link>
               </div>
-            </div>
+            </form>
           </CardContent>
         </Card>
       </div>

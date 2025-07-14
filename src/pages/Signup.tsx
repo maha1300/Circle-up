@@ -7,13 +7,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff, Mail, Lock, User, MapPin } from "lucide-react";
 import { toast } from "sonner";
+import { useUser } from "@/contexts/UserContext";
 
-interface SignupProps {
-  onSignup: () => void;
-}
-
-const Signup = ({ onSignup }: SignupProps) => {
+const Signup = () => {
   const navigate = useNavigate();
+  const { login } = useUser();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -45,8 +43,26 @@ const Signup = ({ onSignup }: SignupProps) => {
     // Simulate signup process
     setTimeout(() => {
       setIsLoading(false);
-      toast.success("Account created successfully! Welcome to MyCommunityHub!");
-      onSignup();
+      
+      // Create user data
+      const userData = {
+        id: Date.now().toString(),
+        name: formData.name,
+        email: formData.email,
+        location: formData.location,
+        bio: 'Not added yet',
+        avatar: `https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop&crop=face`,
+        joinedDate: 'Joined ' + new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
+        posts: [],
+        stats: {
+          posts: 0,
+          communities: 3,
+          following: 45
+        }
+      };
+      
+      login(userData);
+      toast.success("Done! Account created successfully! Welcome to MyCommunityHub!");
       navigate('/'); // Navigate to home page
     }, 1500);
   };

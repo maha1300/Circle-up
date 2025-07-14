@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Camera, MapPin, Send, Image, Video, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useUser } from "@/contexts/UserContext";
 
 const CreatePost = () => {
   const [title, setTitle] = useState('');
@@ -18,6 +19,7 @@ const CreatePost = () => {
   const [mediaType, setMediaType] = useState<'image' | 'video' | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const { addPost, user } = useUser();
   
   const fileInputRef = useRef<HTMLInputElement>(null);
   const videoInputRef = useRef<HTMLInputElement>(null);
@@ -67,23 +69,19 @@ const CreatePost = () => {
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1000));
     
-    // In a real app, you would upload the media file and create the post
+    // Create the new post
     const newPost = {
-      id: Date.now(),
-      author: {
-        name: "You",
-        avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop&crop=face"
-      },
+      title: title,
       content: description,
       category: category,
-      timestamp: "Just now",
-      location: location || "Current Location",
+      location: location || user?.location || "Current Location",
       likes: 0,
       comments: 0,
-      shares: 0,
-      isLiked: false,
       image: mediaPreview || undefined
     };
+
+    // Add post to user's posts
+    addPost(newPost);
 
     toast({
       title: "Post Created!",
