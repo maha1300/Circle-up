@@ -56,11 +56,13 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				'blue-dark': 'hsl(10 17 40)', /* #0a1128 */
-				'blue-navy': 'hsl(0 31 84)', /* #001f54 */
-				'blue-medium': 'hsl(3 64 120)', /* #034078 */
-				'blue-light': 'hsl(18 130 162)', /* #1282a2 */
-				'cream': 'hsl(254 252 251)', /* #fefcfb */
+				'green-light': 'hsl(75 24% 85%)', /* #EDEEC9 */
+				'green-card': 'hsl(70 20% 82%)', /* #DDE7C7 */
+				'green-primary': 'hsl(161 28% 61%)', /* #77BFA3 */
+				'green-secondary': 'hsl(140 27% 69%)', /* #98C9A3 */
+				'gray-dark': 'hsl(0 0% 18%)', /* #2F2F2F */
+				'gray-medium': 'hsl(0 0% 35%)', /* #5A5A5A */
+				'gray-border': 'hsl(0 0% 27%)', /* #444444 */
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -70,11 +72,11 @@ export default {
 			backgroundImage: {
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
 				'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-				'gradient-primary': 'linear-gradient(135deg, #034078 0%, #1282a2 100%)',
-				'gradient-secondary': 'linear-gradient(135deg, #1282a2 0%, #fefcfb 100%)',
-				'gradient-success': 'linear-gradient(135deg, #034078 0%, #1282a2 100%)',
-				'gradient-warning': 'linear-gradient(135deg, #001f54 0%, #034078 100%)',
-				'gradient-danger': 'linear-gradient(135deg, #0a1128 0%, #001f54 100%)',
+				'gradient-primary': 'linear-gradient(135deg, #77BFA3 0%, #98C9A3 100%)',
+				'gradient-secondary': 'linear-gradient(135deg, #98C9A3 0%, #EDEEC9 100%)',
+				'gradient-success': 'linear-gradient(135deg, #77BFA3 0%, #98C9A3 100%)',
+				'gradient-warning': 'linear-gradient(135deg, #DDE7C7 0%, #77BFA3 100%)',
+				'gradient-danger': 'linear-gradient(135deg, #EDEEC9 0%, #DDE7C7 100%)',
 			},
 			keyframes: {
 				'accordion-down': {

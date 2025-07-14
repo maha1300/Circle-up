@@ -7,65 +7,65 @@
 
 @layer base {
   :root {
-    --background: 254 252 251; /* #fefcfb - Off-white cream */
-    --foreground: 0 0 0; /* #000000 - Black text */
+    --background: 75 24% 85%; /* #EDEEC9 - Light green background */
+    --foreground: 0 0% 18%; /* #2F2F2F - Dark gray text */
 
-    --card: 254 252 251; /* Off-white cards */
-    --card-foreground: 0 0 0; /* Black text on cards */
+    --card: 70 20% 82%; /* #DDE7C7 - Light green for cards */
+    --card-foreground: 0 0% 18%; /* #2F2F2F - Dark gray text on cards */
 
-    --popover: 254 252 251;
-    --popover-foreground: 0 0 0;
+    --popover: 70 20% 82%; /* #DDE7C7 - Light green */
+    --popover-foreground: 0 0% 18%; /* #2F2F2F - Dark gray text */
 
-    --primary: 3 64 120; /* #034078 - Medium blue */
-    --primary-foreground: 254 252 251; /* Light text on primary */
+    --primary: 161 28% 61%; /* #77BFA3 - Medium green for CTAs */
+    --primary-foreground: 0 0% 0%; /* Black text on primary buttons */
 
-    --secondary: 18 130 162; /* #1282a2 - Light blue */
-    --secondary-foreground: 0 0 0; /* Black text on secondary */
+    --secondary: 140 27% 69%; /* #98C9A3 - Light green for floating buttons */
+    --secondary-foreground: 0 0% 0%; /* Black text on secondary */
 
-    --muted: 0 31 84; /* #001f54 - Dark blue */
-    --muted-foreground: 254 252 251; /* Light text on muted */
+    --muted: 70 20% 82%; /* #DDE7C7 - Light green */
+    --muted-foreground: 0 0% 35%; /* #5A5A5A - Medium gray for body text */
 
-    --accent: 18 130 162; /* #1282a2 - Light blue */
-    --accent-foreground: 0 0 0;
+    --accent: 140 27% 69%; /* #98C9A3 - Light green for accents */
+    --accent-foreground: 0 0% 0%; /* Black text on accents */
 
-    --destructive: 220 38 38;
-    --destructive-foreground: 254 252 251;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 18 130 162; /* #1282a2 */
-    --input: 254 252 251; /* #fefcfb */
-    --ring: 3 64 120; /* #034078 */
+    --border: 0 0% 27%; /* #444444 - Dark gray for borders */
+    --input: 70 20% 82%; /* #DDE7C7 - Light green for inputs */
+    --ring: 161 28% 61%; /* #77BFA3 - Medium green for focus rings */
 
     --radius: 0.75rem;
   }
 
   .dark {
-    --background: 10 17 40; /* #0a1128 - Very dark blue */
-    --foreground: 254 252 251; /* Light text in dark mode */
+    --background: 140 15% 15%; /* Dark green background */
+    --foreground: 75 24% 85%; /* Light green text */
 
-    --card: 0 31 84; /* #001f54 */
-    --card-foreground: 254 252 251;
+    --card: 140 20% 20%; /* Dark green for cards */
+    --card-foreground: 75 24% 85%; /* Light green text on cards */
 
-    --popover: 0 31 84;
-    --popover-foreground: 254 252 251;
+    --popover: 140 20% 20%; /* Dark green */
+    --popover-foreground: 75 24% 85%; /* Light green text */
 
-    --primary: 18 130 162; /* #1282a2 */
-    --primary-foreground: 254 252 251;
+    --primary: 161 28% 61%; /* #77BFA3 - Medium green for CTAs */
+    --primary-foreground: 0 0% 0%; /* Black text on primary buttons */
 
-    --secondary: 3 64 120;
-    --secondary-foreground: 254 252 251;
+    --secondary: 140 27% 40%; /* Darker green for floating buttons */
+    --secondary-foreground: 75 24% 85%; /* Light green text */
 
-    --muted: 3 64 120;
-    --muted-foreground: 18 130 162;
+    --muted: 140 20% 25%; /* Darker green */
+    --muted-foreground: 0 0% 70%; /* Light gray for body text */
 
-    --accent: 18 130 162; /* #1282a2 */
-    --accent-foreground: 10 17 40;
+    --accent: 140 27% 40%; /* Darker green for accents */
+    --accent-foreground: 75 24% 85%; /* Light green text */
 
-    --destructive: 239 68 68;
-    --destructive-foreground: 254 252 251;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 3 64 120;
-    --input: 3 64 120;
-    --ring: 18 130 162;
+    --border: 0 0% 50%; /* Medium gray for borders */
+    --input: 140 20% 25%; /* Darker green for inputs */
+    --ring: 161 28% 61%; /* Medium green for focus rings */
   }
 }
 
