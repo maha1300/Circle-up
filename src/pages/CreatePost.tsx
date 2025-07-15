@@ -80,11 +80,11 @@ const CreatePost = () => {
   };
 
   return (
-    <div className="min-h-screen bg-app-bg p-4">
+    <div className="min-h-screen bg-background p-4">
       <div className="max-w-md mx-auto pt-8">
-        <Card className="shadow-lg border-0 bg-card-bg">
+        <Card className="shadow-lg border-0 bg-card">
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl font-bold text-input-text">
+            <CardTitle className="text-2xl font-bold text-foreground">
               Create New Post
             </CardTitle>
           </CardHeader>
@@ -95,7 +95,7 @@ const CreatePost = () => {
                   placeholder="Post title..."
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="bg-app-bg border-border-color focus:border-primary-green text-input-text"
+                  className="bg-background border-border focus:border-primary text-foreground"
                   required
                 />
               </div>
@@ -105,14 +105,14 @@ const CreatePost = () => {
                   placeholder="What's happening in your community?"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="bg-app-bg border-border-color focus:border-primary-green min-h-[120px] text-input-text"
+                  className="bg-background border-border focus:border-primary min-h-[120px] text-foreground"
                   required
                 />
               </div>
               
               <div>
                 <Select value={category} onValueChange={setCategory} required>
-                  <SelectTrigger className="bg-app-bg border-border-color focus:border-primary-green">
+                  <SelectTrigger className="bg-background border-border focus:border-primary">
                     <SelectValue placeholder="Select category" />
                   </SelectTrigger>
                   <SelectContent>
@@ -129,12 +129,12 @@ const CreatePost = () => {
               </div>
               
               <div className="relative">
-                <MapPin className="absolute left-3 top-3 h-4 w-4 text-body-text" />
+                <MapPin className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                 <Input
                   placeholder="Location (optional)"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
-                  className="pl-10 bg-app-bg border-border-color focus:border-primary-green text-input-text"
+                  className="pl-10 bg-background border-border focus:border-primary text-foreground"
                 />
               </div>
               
@@ -149,7 +149,7 @@ const CreatePost = () => {
               <Button
                 type="submit"
                 disabled={isLoading || !title || !description || !category}
-                className="w-full bg-primary-green hover:bg-primary-green/90 text-white font-semibold py-3 rounded-lg transition-all duration-200 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 rounded-lg transition-all duration-200 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
               >
                 {isLoading ? (
                   <div className="flex items-center">

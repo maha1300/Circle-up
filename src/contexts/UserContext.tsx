@@ -33,6 +33,7 @@ export interface Post {
   location?: string;
   image?: string;
   isLiked?: boolean;
+  authorName?: string;
 }
 
 export interface Follower {
@@ -89,7 +90,8 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
       shares: 12,
       time: "2 hours ago",
       location: "Anna Nagar, Chennai",
-      isLiked: false
+      isLiked: false,
+      authorName: "City Admin"
     },
     {
       id: 2,
@@ -102,7 +104,8 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
       time: "4 hours ago",
       location: "Thanjavur",
       isLiked: true,
-      image: "https://images.unsplash.com/photo-1466442929976-97f336a657be?w=500&h=300&fit=crop"
+      image: "https://images.unsplash.com/photo-1466442929976-97f336a657be?w=500&h=300&fit=crop",
+      authorName: "Community Leader"
     }
   ]);
 
@@ -131,7 +134,8 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
         id: Date.now(),
         time: 'Just now',
         shares: 0,
-        isLiked: false
+        isLiked: false,
+        authorName: user.name
       };
       
       const updatedPosts = [post, ...user.posts];

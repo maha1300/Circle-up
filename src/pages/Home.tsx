@@ -23,14 +23,14 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-app-bg">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-card-bg/80 backdrop-blur-sm border-b border-border-color sticky top-0 z-40">
+      <div className="bg-card/80 backdrop-blur-sm border-b border-border sticky top-0 z-40">
         <div className="px-4 py-4">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h1 className="text-2xl font-bold text-input-text">Good morning! 👋</h1>
-              <p className="text-body-text">What's happening in your community</p>
+              <h1 className="text-2xl font-bold text-foreground">Good morning! 👋</h1>
+              <p className="text-muted-foreground">What's happening in your community</p>
             </div>
             <Button
               variant="ghost"
@@ -54,18 +54,18 @@ const Home = () => {
       <div className="px-4 py-6 space-y-6">
         {/* Quick Stats */}
         <div className="grid grid-cols-2 gap-4">
-          <Card className="bg-gradient-to-br from-primary-green/10 to-floating-green/10 border-0">
+          <Card className="bg-gradient-to-br from-primary/10 to-secondary/10 border-0 shadow-md">
             <CardContent className="p-4 text-center">
               <div className="text-2xl mb-2">🏘️</div>
-              <div className="text-2xl font-bold text-primary-green">3</div>
-              <div className="text-sm text-body-text">Communities</div>
+              <div className="text-2xl font-bold text-primary">3</div>
+              <div className="text-sm text-muted-foreground">Communities</div>
             </CardContent>
           </Card>
-          <Card className="bg-gradient-to-br from-floating-green/10 to-primary-green/10 border-0">
+          <Card className="bg-gradient-to-br from-secondary/10 to-primary/10 border-0 shadow-md">
             <CardContent className="p-4 text-center">
               <div className="text-2xl mb-2">🔔</div>
-              <div className="text-2xl font-bold text-floating-green">7</div>
-              <div className="text-sm text-body-text">New Alerts</div>
+              <div className="text-2xl font-bold text-secondary">7</div>
+              <div className="text-sm text-muted-foreground">New Alerts</div>
             </CardContent>
           </Card>
         </div>
@@ -73,10 +73,10 @@ const Home = () => {
         {/* Posts Feed */}
         <div className="space-y-4">
           {filteredPosts.length === 0 ? (
-            <Card className="p-8 text-center bg-card-bg/50">
+            <Card className="p-8 text-center bg-card/50 shadow-md">
               <div className="text-6xl mb-4">📭</div>
-              <h3 className="text-lg font-semibold text-input-text mb-2">No posts yet</h3>
-              <p className="text-body-text">Be the first to share something with your community!</p>
+              <h3 className="text-lg font-semibold text-foreground mb-2">No posts yet</h3>
+              <p className="text-muted-foreground">Be the first to share something with your community!</p>
             </Card>
           ) : (
             filteredPosts.map((post) => (
@@ -84,8 +84,8 @@ const Home = () => {
                 ...post,
                 isLiked: post.isLiked ?? false,
                 author: {
-                  name: "Community Member",
-                  avatar: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=100&h=100&fit=crop&crop=face"
+                  name: post.authorName || "Community Member",
+                  avatar: post.authorName?.charAt(0).toUpperCase() || "C"
                 },
                 timestamp: post.time,
                 location: post.location || "Local Area"

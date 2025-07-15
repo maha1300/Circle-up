@@ -114,14 +114,14 @@ const Search = () => {
             <CardContent className="p-4">
               <div className="flex items-start justify-between mb-2">
                 <div className="flex items-center space-x-3 flex-1">
-                  <Avatar className="h-8 w-8">
-                    <AvatarFallback className="bg-primary-green text-white text-xs">
+                 <Avatar className="h-8 w-8">
+                    <AvatarFallback className="bg-primary text-primary-foreground text-xs">
                       {result.author.split(' ').map((n: string) => n[0]).join('')}
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-input-text truncate">{result.title}</h3>
-                    <p className="text-xs text-body-text">{result.author}</p>
+                    <h3 className="font-semibold text-foreground truncate">{result.title}</h3>
+                    <p className="text-xs text-muted-foreground">{result.author}</p>
                   </div>
                 </div>
                 <Badge className={`${getCategoryColor(result.category)} text-xs`}>
@@ -129,9 +129,9 @@ const Search = () => {
                 </Badge>
               </div>
               
-              <p className="text-body-text text-sm mb-3 line-clamp-2">{result.content}</p>
+              <p className="text-muted-foreground text-sm mb-3 line-clamp-2">{result.content}</p>
               
-              <div className="flex items-center justify-between text-xs text-body-text">
+              <div className="flex items-center justify-between text-xs text-muted-foreground">
                 <div className="flex items-center space-x-3">
                   <div className="flex items-center">
                     <MapPin className="h-3 w-3 mr-1" />
@@ -158,25 +158,25 @@ const Search = () => {
               <div className="flex items-center space-x-3">
                 <Avatar className="h-12 w-12">
                   <AvatarImage src={result.avatar} alt={result.name} />
-                  <AvatarFallback className="bg-primary-green text-white">
+                  <AvatarFallback className="bg-primary text-primary-foreground">
                     {result.name.split(' ').map((n: string) => n[0]).join('')}
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex-1">
-                  <h3 className="font-semibold text-input-text">{result.name}</h3>
-                  <p className="text-sm text-body-text">{result.username}</p>
-                  <p className="text-xs text-body-text flex items-center mt-1">
+                  <h3 className="font-semibold text-foreground">{result.name}</h3>
+                  <p className="text-sm text-muted-foreground">{result.username}</p>
+                  <p className="text-xs text-muted-foreground flex items-center mt-1">
                     <MapPin className="h-3 w-3 mr-1" />
                     {result.location}
                   </p>
-                  <p className="text-xs text-body-text">{result.followers} followers</p>
+                  <p className="text-xs text-muted-foreground">{result.followers} followers</p>
                 </div>
-                <Button size="sm" className="bg-primary-green hover:bg-primary-green/90 text-white">
+                <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground">
                   Follow
                 </Button>
               </div>
               {result.bio && (
-                <p className="text-sm text-body-text mt-3">{result.bio}</p>
+                <p className="text-sm text-muted-foreground mt-3">{result.bio}</p>
               )}
             </CardContent>
           </Card>
@@ -187,18 +187,18 @@ const Search = () => {
           <Card key={result.id} className="shadow-md border-0 hover:shadow-lg transition-shadow duration-200 cursor-pointer">
             <CardContent className="p-4">
               <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-primary-green/20 rounded-full flex items-center justify-center text-2xl">
+                <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center text-2xl">
                   {result.logo}
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-semibold text-input-text">{result.name}</h3>
-                  <p className="text-sm text-body-text flex items-center">
+                  <h3 className="font-semibold text-foreground">{result.name}</h3>
+                  <p className="text-sm text-muted-foreground flex items-center">
                     <Users className="h-3 w-3 mr-1" />
                     {result.members} members
                   </p>
-                  <p className="text-xs text-body-text mt-1">{result.description}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{result.description}</p>
                 </div>
-                <Button size="sm" className="bg-floating-green hover:bg-floating-green/90 text-white">
+                <Button size="sm" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground">
                   Join
                 </Button>
               </div>
@@ -211,14 +211,14 @@ const Search = () => {
           <Card key={result.id} className="shadow-md border-0 hover:shadow-lg transition-shadow duration-200 cursor-pointer">
             <CardContent className="p-4">
               <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-floating-green/20 rounded-full flex items-center justify-center">
-                  <MapPin className="h-6 w-6 text-primary-green" />
+                <div className="w-12 h-12 bg-secondary/20 rounded-full flex items-center justify-center">
+                  <MapPin className="h-6 w-6 text-primary" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-semibold text-input-text">{result.name}</h3>
-                  <p className="text-sm text-body-text">{result.city}</p>
-                  <p className="text-xs text-body-text mt-1">{result.description}</p>
-                  <div className="flex space-x-4 mt-2 text-xs text-body-text">
+                  <h3 className="font-semibold text-foreground">{result.name}</h3>
+                  <p className="text-sm text-muted-foreground">{result.city}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{result.description}</p>
+                  <div className="flex space-x-4 mt-2 text-xs text-muted-foreground">
                     <span>{result.posts} posts</span>
                     <span>{result.communities} communities</span>
                   </div>
@@ -234,22 +234,22 @@ const Search = () => {
   };
 
   return (
-    <div className="min-h-screen bg-app-bg p-4">
+    <div className="min-h-screen bg-background p-4">
       <div className="max-w-md mx-auto pt-8">
         {/* Search Header */}
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-input-text mb-4">
+          <h1 className="text-2xl font-bold text-foreground mb-4">
             Search
           </h1>
           
           {/* Search Bar */}
           <div className="relative mb-4">
-            <SearchIcon className="absolute left-3 top-3 h-4 w-4 text-body-text" />
+            <SearchIcon className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
             <Input
               placeholder="Search posts, users, communities, locations..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 border-border-color focus:border-primary-green bg-app-bg text-input-text"
+              className="pl-10 border-border focus:border-primary bg-background text-foreground"
             />
           </div>
           
@@ -263,8 +263,8 @@ const Search = () => {
                 onClick={() => setSelectedFilter(filter.id)}
                 className={`flex items-center space-x-2 whitespace-nowrap transition-all duration-200 ${
                   selectedFilter === filter.id
-                    ? "bg-primary-green text-white shadow-lg"
-                    : "hover:bg-floating-green/20 text-input-text"
+                    ? "bg-primary text-primary-foreground shadow-lg"
+                    : "hover:bg-secondary/20 text-foreground"
                 }`}
               >
                 <span>{filter.icon}</span>
@@ -280,11 +280,11 @@ const Search = () => {
             filteredResults.map(renderResult)
           ) : (
             <div className="text-center py-12">
-              <SearchIcon className="h-16 w-16 text-body-text/50 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-body-text mb-2">
+              <SearchIcon className="h-16 w-16 text-muted-foreground/50 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-muted-foreground mb-2">
                 {searchQuery ? 'No results found' : 'Start searching'}
               </h3>
-              <p className="text-body-text">
+              <p className="text-muted-foreground">
                 {searchQuery ? 'Try different keywords or filters' : 'Search for posts, users, communities and locations'}
               </p>
             </div>
