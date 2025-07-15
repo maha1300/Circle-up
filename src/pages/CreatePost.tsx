@@ -1,13 +1,14 @@
 
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Camera, MapPin, Send, Image, Video, X } from "lucide-react";
+import { MapPin, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useUser } from "@/contexts/UserContext";
+import MediaUpload from "@/components/MediaUpload";
 
 const CreatePost = () => {
   const [title, setTitle] = useState('');
@@ -20,9 +21,6 @@ const CreatePost = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const { addPost, user } = useUser();
-  
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const videoInputRef = useRef<HTMLInputElement>(null);
 
   const categories = [
     { id: "alert", label: "Alert", icon: "⚡" },
@@ -32,34 +30,16 @@ const CreatePost = () => {
     { id: "news", label: "News", icon: "📢" }
   ];
 
-  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>, type: 'image' | 'video') => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setMediaFile(file);
-      setMediaType(type);
-      
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setMediaPreview(e.target?.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
+  const handleMediaSelect = (file: File, preview: string, type: 'image' | 'video') => {
+    setMediaFile(file);
+    setMediaPreview(preview);
+    setMediaType(type);
   };
 
-  const handleCameraCapture = () => {
-    // In a real app, this would open the camera
-    toast({
-      title: "Camera Feature",
-      description: "Camera capture would be implemented here using device APIs.",
-    });
-  };
-
-  const removeMedia = () => {
+  const handleMediaRemove = () => {
     setMediaFile(null);
     setMediaPreview('');
     setMediaType(null);
-    if (fileInputRef.current) fileInputRef.current.value = '';
-    if (videoInputRef.current) videoInputRef.current.value = '';
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -93,16 +73,16 @@ const CreatePost = () => {
     setDescription('');
     setCategory('');
     setLocation('');
-    removeMedia();
+    handleMediaRemove();
     setIsLoading(false);
   };
 
   return (
-    <div className="min-h-screen bg-background p-4">
+    <div className="min-h-screen bg-app-bg p-4">
       <div className="max-w-md mx-auto pt-8">
-        <Card className="shadow-lg border-0 bg-card">
+        <Card className="shadow-lg border-0 bg-card-bg">
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl font-bold text-card-foreground">
+            <CardTitle className="text-2xl font-bold text-input-text">
               Create New Post
             </CardTitle>
           </CardHeader>
@@ -113,7 +93,7 @@ const CreatePost = () => {
                   placeholder="Post title..."
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="bg-input border-border focus:border-primary text-card-foreground"
+                  className="bg-app-bg border-border-color focus:border-primary-green text-input-text"
                   required
                 />
               </div>
@@ -123,14 +103,14 @@ const CreatePost = () => {
                   placeholder="What's happening in your community?"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="bg-input border-border focus:border-primary min-h-[120px] text-card-foreground"
+                  className="bg-app-bg border-border-color focus:border-primary-green min-h-[120px] text-input-text"
                   required
                 />
               </div>
               
               <div>
                 <Select value={category} onValueChange={setCategory} required>
-                  <SelectTrigger className="bg-input border-border focus:border-primary">
+                  <SelectTrigger className="bg-app-bg border-border-color focus:border-primary-green">
                     <SelectValue placeholder="Select category" />
                   </SelectTrigger>
                   <SelectContent>
@@ -147,92 +127,31 @@ const CreatePost = () => {
               </div>
               
               <div className="relative">
-                <MapPin className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                <MapPin className="absolute left-3 top-3 h-4 w-4 text-body-text" />
                 <Input
                   placeholder="Location (optional)"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
-                  className="pl-10 bg-input border-border focus:border-primary text-card-foreground"
+                  className="pl-10 bg-app-bg border-border-color focus:border-primary-green text-input-text"
                 />
               </div>
               
-              {/* Media Preview */}
-              {mediaPreview && (
-                <div className="relative rounded-lg overflow-hidden">
-                  {mediaType === 'image' ? (
-                    <img src={mediaPreview} alt="Preview" className="w-full h-48 object-cover" />
-                  ) : (
-                    <video src={mediaPreview} className="w-full h-48 object-cover" controls />
-                  )}
-                  <Button
-                    type="button"
-                    variant="destructive"
-                    size="sm"
-                    className="absolute top-2 right-2"
-                    onClick={removeMedia}
-                  >
-                    <X className="h-4 w-4" />
-                  </Button>
-                </div>
-              )}
-              
-              {/* Media Upload Options */}
-              <div className="grid grid-cols-3 gap-2">
-                <Button
-                  type="button"
-                  variant="outline"
-                  className="flex flex-col items-center p-4 h-auto border-border hover:bg-muted"
-                  onClick={() => fileInputRef.current?.click()}
-                >
-                  <Image className="h-5 w-5 mb-1 text-primary" />
-                  <span className="text-xs">Photo</span>
-                </Button>
-                
-                <Button
-                  type="button"
-                  variant="outline"
-                  className="flex flex-col items-center p-4 h-auto border-border hover:bg-muted"
-                  onClick={handleCameraCapture}
-                >
-                  <Camera className="h-5 w-5 mb-1 text-accent" />
-                  <span className="text-xs">Camera</span>
-                </Button>
-                
-                <Button
-                  type="button"
-                  variant="outline"
-                  className="flex flex-col items-center p-4 h-auto border-border hover:bg-muted"
-                  onClick={() => videoInputRef.current?.click()}
-                >
-                  <Video className="h-5 w-5 mb-1 text-primary" />
-                  <span className="text-xs">Video</span>
-                </Button>
-              </div>
-
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                className="hidden"
-                onChange={(e) => handleFileSelect(e, 'image')}
-              />
-              
-              <input
-                ref={videoInputRef}
-                type="file"
-                accept="video/*"
-                className="hidden"
-                onChange={(e) => handleFileSelect(e, 'video')}
+              {/* Media Upload */}
+              <MediaUpload
+                onMediaSelect={handleMediaSelect}
+                onMediaRemove={handleMediaRemove}
+                mediaPreview={mediaPreview}
+                mediaType={mediaType}
               />
               
               <Button
                 type="submit"
                 disabled={isLoading || !title || !description || !category}
-                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 rounded-lg transition-all duration-200 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                className="w-full bg-primary-green hover:bg-primary-green/90 text-white font-semibold py-3 rounded-lg transition-all duration-200 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
               >
                 {isLoading ? (
                   <div className="flex items-center">
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary-foreground mr-2"></div>
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
                     Posting...
                   </div>
                 ) : (
