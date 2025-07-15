@@ -24,7 +24,7 @@ const Search = () => {
       id: 1,
       type: 'post',
       title: 'Local Market Update',
-      content: 'New vegetable market opened near the temple with fresh produce...',
+      content: 'New vegetable market opened near the temple with fresh produce and affordable prices for the community.',
       author: 'John Doe',
       location: 'Thanjavur Central',
       time: '2 hours ago',
@@ -47,7 +47,7 @@ const Search = () => {
       type: 'community',
       name: 'Thanjavur Central Community',
       members: 1234,
-      description: 'Local community for Thanjavur Central residents',
+      description: 'Local community for Thanjavur Central residents sharing updates and events',
       category: 'local',
       logo: '🏘️'
     },
@@ -58,7 +58,25 @@ const Search = () => {
       city: 'Chennai',
       posts: 45,
       communities: 3,
-      description: 'Residential area in Chennai with active community'
+      description: 'Residential area in Chennai with active community participation'
+    },
+    {
+      id: 5,
+      type: 'user',
+      name: 'Rajesh Kumar',
+      username: '@rajesh_kumar',
+      location: 'Thanjavur, Tamil Nadu',
+      followers: 89,
+      bio: 'Local business owner and community member'
+    },
+    {
+      id: 6,
+      type: 'community',
+      name: 'Chennai Tech Community',
+      members: 567,
+      description: 'Technology enthusiasts and professionals in Chennai',
+      category: 'tech',
+      logo: '💻'
     }
   ];
 

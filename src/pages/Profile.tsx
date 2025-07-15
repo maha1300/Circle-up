@@ -57,12 +57,11 @@ const Profile = () => {
           <Card className="mb-6 shadow-lg bg-card-bg border-border-color">
             <CardContent className="pt-6">
               <div className="flex flex-col items-center text-center">
-                <Avatar className="h-20 w-20 mb-4 ring-4 ring-primary-green/20">
-                  <AvatarImage src={user.avatar} alt={user.name} />
-                  <AvatarFallback className="bg-primary-green text-white text-lg font-bold">
-                    {user.name.split(' ').map(n => n[0]).join('').toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
+                 <Avatar className="h-20 w-20 mb-4 ring-4 ring-primary/20">
+                   <AvatarFallback className="bg-primary text-primary-foreground text-lg font-bold">
+                     {user.name.charAt(0).toUpperCase()}
+                   </AvatarFallback>
+                 </Avatar>
                 
                 <h1 className="text-xl font-bold text-input-text mb-1">{user.name}</h1>
                 <p className="text-body-text text-sm mb-2">{user.bio || "Not added yet"}</p>

@@ -217,7 +217,7 @@ const PostCard = ({ post, onPostClick }: PostCardProps) => {
       <CommentsModal 
         isOpen={showComments} 
         onClose={() => setShowComments(false)} 
-        postId={post.id} 
+        postTitle={post.content.substring(0, 50) + "..."} 
       />
       
       <ShareModal 
