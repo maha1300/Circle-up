@@ -82,6 +82,7 @@ const Home = () => {
             filteredPosts.map((post) => (
               <PostCard key={post.id} post={{
                 ...post,
+                isLiked: post.isLiked ?? false,
                 author: {
                   name: "Community Member",
                   avatar: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=100&h=100&fit=crop&crop=face"

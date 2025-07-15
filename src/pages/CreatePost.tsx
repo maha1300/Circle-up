@@ -57,7 +57,9 @@ const CreatePost = () => {
       location: location || user?.location || "Current Location",
       likes: 0,
       comments: 0,
-      image: mediaPreview || undefined
+      shares: 0,
+      image: mediaPreview || undefined,
+      isLiked: false
     };
 
     // Add post to user's posts

@@ -54,10 +54,14 @@ const Signup = () => {
         avatar: `https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop&crop=face`,
         joinedDate: 'Joined ' + new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
         posts: [],
+        followers: [],
+        following: [],
+        communities: [],
         stats: {
           posts: 0,
           communities: 3,
-          following: 45
+          following: 45,
+          followers: 0
         }
       };
       
