@@ -107,27 +107,18 @@ const PostCard = ({ post, onPostClick }: PostCardProps) => {
           {/* Author Header */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-3">
-              <Avatar className="w-12 h-12 ring-2 ring-primary/20 shadow-lg cursor-pointer hover:ring-primary/40 transition-all">
+              <Avatar className="w-12 h-12 ring-2 ring-card shadow-lg">
                 <AvatarImage src={post.author.avatar.startsWith('http') ? post.author.avatar : undefined} />
-                <AvatarFallback className="bg-primary text-primary-foreground font-bold text-lg">
+                <AvatarFallback className={`bg-gradient-to-br ${config.gradient} text-primary-foreground font-bold`}>
                   {post.author.avatar.startsWith('http') ? 
                     post.author.name.split(' ').map(n => n[0]).join('') : 
-                    post.author.name.charAt(0).toUpperCase()
+                    post.author.avatar
                   }
                 </AvatarFallback>
               </Avatar>
               <div>
                 <div className="flex items-center space-x-2">
-                  <h3 
-                    className="font-bold text-card-foreground cursor-pointer hover:text-primary transition-colors"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      // Navigate to user profile
-                      window.location.href = `/profile/${post.author.name}`;
-                    }}
-                  >
-                    {post.author.name}
-                  </h3>
+                  <h3 className="font-bold text-card-foreground">{post.author.name}</h3>
                   {post.author.isOfficial && (
                     <Badge className="bg-gradient-to-r from-primary to-accent text-primary-foreground text-xs border-0 animate-pulse-soft">
                       <Sparkles className="w-3 h-3 mr-1" />
@@ -226,7 +217,7 @@ const PostCard = ({ post, onPostClick }: PostCardProps) => {
       <CommentsModal 
         isOpen={showComments} 
         onClose={() => setShowComments(false)} 
-        postTitle={post.content.substring(0, 50) + "..."} 
+        postId={post.id} 
       />
       
       <ShareModal 
