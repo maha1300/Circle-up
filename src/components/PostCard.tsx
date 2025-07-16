@@ -30,9 +30,10 @@ interface Post {
 interface PostCardProps {
   post: Post;
   onPostClick?: (post: Post) => void;
+  onAuthorClick?: (authorName: string) => void;
 }
 
-const PostCard = ({ post, onPostClick }: PostCardProps) => {
+const PostCard = ({ post, onPostClick, onAuthorClick }: PostCardProps) => {
   const [isLiked, setIsLiked] = useState(post.isLiked);
   const [likes, setLikes] = useState(post.likes);
   const [showComments, setShowComments] = useState(false);
@@ -101,15 +102,20 @@ const PostCard = ({ post, onPostClick }: PostCardProps) => {
 
   return (
     <>
-      <Card className="bg-card backdrop-blur-lg border-0 shadow-xl hover:shadow-2xl transition-all duration-500 animate-fade-in hover:scale-[1.02] overflow-hidden cursor-pointer" onClick={handlePostClick}>
-        <div className={`h-1 w-full bg-gradient-to-r ${config.gradient}`}></div>
-        <CardContent className="p-5">
+      <Card className="bg-card border border-border shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer" onClick={handlePostClick}>
+        <CardContent className="p-4">
           {/* Author Header */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-3">
-              <Avatar className="w-12 h-12 ring-2 ring-card shadow-lg">
+              <Avatar 
+                className="w-12 h-12 ring-2 ring-border shadow-lg cursor-pointer hover:ring-primary transition-all" 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onAuthorClick?.(post.author.name);
+                }}
+              >
                 <AvatarImage src={post.author.avatar.startsWith('http') ? post.author.avatar : undefined} />
-                <AvatarFallback className={`bg-gradient-to-br ${config.gradient} text-primary-foreground font-bold`}>
+                <AvatarFallback className="bg-primary text-primary-foreground font-bold text-sm">
                   {post.author.avatar.startsWith('http') ? 
                     post.author.name.split(' ').map(n => n[0]).join('') : 
                     post.author.avatar
@@ -118,9 +124,17 @@ const PostCard = ({ post, onPostClick }: PostCardProps) => {
               </Avatar>
               <div>
                 <div className="flex items-center space-x-2">
-                  <h3 className="font-bold text-card-foreground">{post.author.name}</h3>
+                  <h3 
+                    className="font-bold text-foreground cursor-pointer hover:text-primary transition-colors"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onAuthorClick?.(post.author.name);
+                    }}
+                  >
+                    {post.author.name}
+                  </h3>
                   {post.author.isOfficial && (
-                    <Badge className="bg-gradient-to-r from-primary to-accent text-primary-foreground text-xs border-0 animate-pulse-soft">
+                    <Badge className="bg-primary text-primary-foreground text-xs border-0">
                       <Sparkles className="w-3 h-3 mr-1" />
                       Official
                     </Badge>
@@ -128,18 +142,18 @@ const PostCard = ({ post, onPostClick }: PostCardProps) => {
                 </div>
                 <div className="flex items-center space-x-4 text-xs text-muted-foreground">
                   <div className="flex items-center space-x-1">
-                    <Clock size={12} className="text-primary" />
+                    <Clock size={12} />
                     <span>{post.timestamp}</span>
                   </div>
                   <div className="flex items-center space-x-1">
-                    <MapPin size={12} className="text-accent" />
+                    <MapPin size={12} />
                     <span>{post.location}</span>
                   </div>
                 </div>
               </div>
             </div>
             
-            <Badge className={`${config.bgColor} ${config.textColor} border-0 font-bold shadow-lg animate-float`}>
+            <Badge className="bg-secondary text-secondary-foreground border border-border font-bold">
               <span className="mr-1 text-sm">{config.icon}</span>
               {post.category}
             </Badge>
@@ -147,13 +161,13 @@ const PostCard = ({ post, onPostClick }: PostCardProps) => {
 
           {/* Content */}
           <div className="mb-4">
-            <p className="text-card-foreground leading-relaxed font-medium">{post.content}</p>
+            <p className="text-foreground leading-relaxed">{post.content}</p>
             {post.image && (
-              <div className="mt-4 rounded-xl overflow-hidden shadow-lg">
+              <div className="mt-4 rounded-lg overflow-hidden border border-border">
                 <img 
                   src={post.image} 
                   alt="Post content" 
-                  className="w-full h-48 object-cover hover:scale-110 transition-transform duration-500"
+                  className="w-full h-48 object-cover"
                 />
               </div>
             )}
@@ -171,14 +185,14 @@ const PostCard = ({ post, onPostClick }: PostCardProps) => {
                 }}
                 className={`flex items-center space-x-2 transition-all duration-300 ${
                   isLiked 
-                    ? 'text-destructive bg-destructive/10 hover:bg-destructive/20 animate-bounce-gentle' 
-                    : 'text-muted-foreground hover:bg-destructive/10 hover:text-destructive'
+                    ? 'text-destructive hover:bg-destructive/10' 
+                    : 'text-muted-foreground hover:text-destructive hover:bg-destructive/10'
                 }`}
               >
                 <Heart 
                   size={18} 
                   className={`transition-all duration-300 ${
-                    isLiked ? 'fill-current text-destructive scale-125' : ''
+                    isLiked ? 'fill-current' : ''
                   }`} 
                 />
                 <span className="font-bold">{likes}</span>

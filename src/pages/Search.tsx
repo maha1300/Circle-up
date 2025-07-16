@@ -98,22 +98,22 @@ const Search = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 p-4">
+    <div className="min-h-screen bg-background p-4">
       <div className="max-w-md mx-auto pt-8">
         {/* Search Header */}
         <div className="mb-6">
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-community-blue to-community-purple bg-clip-text text-transparent mb-4">
+          <h1 className="text-2xl font-bold text-foreground mb-4">
             Search
           </h1>
           
           {/* Search Bar */}
           <div className="relative mb-4">
-            <SearchIcon className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+            <SearchIcon className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search posts, events, schemes..."
+              placeholder="Search users, locations, communities..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 border-slate-200 focus:border-community-blue"
+              className="pl-10 bg-input border-border focus:border-primary text-foreground"
             />
           </div>
           
@@ -127,8 +127,8 @@ const Search = () => {
                 onClick={() => setSelectedFilter(filter.id)}
                 className={`flex items-center space-x-2 whitespace-nowrap transition-all duration-200 ${
                   selectedFilter === filter.id
-                    ? "bg-gradient-to-r from-community-blue to-community-purple text-white shadow-lg"
-                    : "hover:bg-slate-100"
+                    ? "bg-primary text-primary-foreground"
+                    : "text-foreground hover:bg-muted"
                 }`}
               >
                 <span>{filter.icon}</span>
@@ -142,29 +142,29 @@ const Search = () => {
         <div className="space-y-4">
           {filteredResults.length > 0 ? (
             filteredResults.map((result) => (
-              <Card key={result.id} className="shadow-md border-0 hover:shadow-lg transition-shadow duration-200">
+              <Card key={result.id} className="bg-card border border-border shadow-md hover:shadow-lg transition-shadow duration-200 cursor-pointer">
                 <CardContent className="p-4">
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex items-center space-x-3 flex-1">
                       <Avatar className="h-8 w-8">
                         <AvatarImage src="/placeholder.svg" alt={result.author} />
-                        <AvatarFallback className="bg-gradient-to-r from-community-blue to-community-purple text-white text-xs">
+                        <AvatarFallback className="bg-primary text-primary-foreground text-xs">
                           {result.author.split(' ').map(n => n[0]).join('')}
                         </AvatarFallback>
                       </Avatar>
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-slate-800 truncate">{result.title}</h3>
-                        <p className="text-xs text-slate-500">{result.author}</p>
+                        <h3 className="font-semibold text-foreground truncate">{result.title}</h3>
+                        <p className="text-xs text-muted-foreground">{result.author}</p>
                       </div>
                     </div>
-                    <Badge className={`${getCategoryColor(result.category)} text-xs`}>
+                    <Badge className="bg-secondary text-secondary-foreground text-xs border border-border">
                       {getCategoryIcon(result.category)} {result.category}
                     </Badge>
                   </div>
                   
-                  <p className="text-slate-600 text-sm mb-3 line-clamp-2">{result.content}</p>
+                  <p className="text-foreground text-sm mb-3 line-clamp-2">{result.content}</p>
                   
-                  <div className="flex items-center justify-between text-xs text-slate-500">
+                  <div className="flex items-center justify-between text-xs text-muted-foreground">
                     <div className="flex items-center space-x-3">
                       <div className="flex items-center">
                         <MapPin className="h-3 w-3 mr-1" />
@@ -185,12 +185,12 @@ const Search = () => {
             ))
           ) : (
             <div className="text-center py-12">
-              <SearchIcon className="h-16 w-16 text-slate-300 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-slate-400 mb-2">
+              <SearchIcon className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-foreground mb-2">
                 {searchQuery ? 'No results found' : 'Start searching'}
               </h3>
-              <p className="text-slate-400">
-                {searchQuery ? 'Try different keywords or filters' : 'Search for posts, events, schemes and more'}
+              <p className="text-muted-foreground">
+                {searchQuery ? 'Try different keywords or filters' : 'Search for users, locations, communities and more'}
               </p>
             </div>
           )}

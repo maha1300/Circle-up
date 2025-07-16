@@ -80,11 +80,11 @@ const CommentsModal = ({ isOpen, onClose, postId }: CommentsModalProps) => {
                 <AvatarFallback>{comment.author[0]}</AvatarFallback>
               </Avatar>
               <div className="flex-1">
-                <div className="bg-gray-100 rounded-lg p-3">
-                  <p className="font-medium text-sm">{comment.author}</p>
-                  <p className="text-sm text-gray-700">{comment.content}</p>
+                <div className="bg-muted rounded-lg p-3">
+                  <p className="font-medium text-sm text-foreground">{comment.author}</p>
+                  <p className="text-sm text-foreground">{comment.content}</p>
                 </div>
-                <p className="text-xs text-gray-500 mt-1">{comment.timestamp}</p>
+                <p className="text-xs text-muted-foreground mt-1">{comment.timestamp}</p>
               </div>
             </div>
           ))}
@@ -102,7 +102,7 @@ const CommentsModal = ({ isOpen, onClose, postId }: CommentsModalProps) => {
             <Button 
               onClick={handleAddComment}
               disabled={!newComment.trim()}
-              className="bg-[#1E88E5] hover:bg-[#1976D2] text-white"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground"
             >
               <Send className="h-4 w-4" />
             </Button>

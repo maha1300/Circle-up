@@ -65,23 +65,23 @@ const Notifications = () => {
   };
 
   const NotificationItem = ({ notification }: { notification: any }) => (
-    <Card className={`mb-3 border-l-4 ${notification.unread ? 'border-l-community-blue shadow-md' : 'border-l-slate-200'} hover:shadow-lg transition-shadow duration-200`}>
+    <Card className={`mb-3 border-l-4 ${notification.unread ? 'border-l-primary shadow-md' : 'border-l-border'} hover:shadow-lg transition-shadow duration-200 cursor-pointer bg-card border-border`}>
       <CardContent className="p-4">
         <div className="flex items-start space-x-3">
-          <div className={`p-2 rounded-full ${notification.color} text-lg`}>
+          <div className="p-2 rounded-full bg-muted text-lg">
             {notification.icon}
           </div>
           <div className="flex-1">
             <div className="flex items-center justify-between">
-              <h3 className="font-semibold text-slate-800">{notification.title}</h3>
+              <h3 className="font-semibold text-foreground">{notification.title}</h3>
               {notification.unread && (
-                <Badge variant="secondary" className="bg-community-blue text-white text-xs">
+                <Badge variant="secondary" className="bg-primary text-primary-foreground text-xs">
                   New
                 </Badge>
               )}
             </div>
-            <p className="text-slate-600 text-sm mt-1">{notification.message}</p>
-            <p className="text-slate-400 text-xs mt-2">{notification.time}</p>
+            <p className="text-foreground text-sm mt-1">{notification.message}</p>
+            <p className="text-muted-foreground text-xs mt-2">{notification.time}</p>
           </div>
         </div>
       </CardContent>
@@ -89,18 +89,18 @@ const Notifications = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 p-4">
+    <div className="min-h-screen bg-background p-4">
       <div className="max-w-md mx-auto pt-8">
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-community-blue to-community-purple bg-clip-text text-transparent">
+          <h1 className="text-2xl font-bold text-foreground">
             Notifications
           </h1>
-          <Bell className="h-6 w-6 text-community-blue" />
+          <Bell className="h-6 w-6 text-primary" />
         </div>
 
         {groupedNotifications.today.length > 0 && (
           <div className="mb-6">
-            <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-3">Today</h2>
+            <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">Today</h2>
             {groupedNotifications.today.map(notification => (
               <NotificationItem key={notification.id} notification={notification} />
             ))}
@@ -109,7 +109,7 @@ const Notifications = () => {
 
         {groupedNotifications.thisWeek.length > 0 && (
           <div className="mb-6">
-            <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-3">This Week</h2>
+            <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">This Week</h2>
             {groupedNotifications.thisWeek.map(notification => (
               <NotificationItem key={notification.id} notification={notification} />
             ))}
@@ -118,7 +118,7 @@ const Notifications = () => {
 
         {groupedNotifications.earlier.length > 0 && (
           <div className="mb-6">
-            <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-3">Earlier</h2>
+            <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">Earlier</h2>
             {groupedNotifications.earlier.map(notification => (
               <NotificationItem key={notification.id} notification={notification} />
             ))}
@@ -127,9 +127,9 @@ const Notifications = () => {
 
         {notifications.length === 0 && (
           <div className="text-center py-12">
-            <Bell className="h-16 w-16 text-slate-300 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-slate-400 mb-2">No notifications yet</h3>
-            <p className="text-slate-400">Stay tuned for community updates!</p>
+            <Bell className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+            <h3 className="text-lg font-semibold text-foreground mb-2">No notifications yet</h3>
+            <p className="text-muted-foreground">Stay tuned for community updates!</p>
           </div>
         )}
       </div>

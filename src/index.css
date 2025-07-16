@@ -7,65 +7,65 @@
 
 @layer base {
   :root {
-    --background: 75 24% 85%; /* #EDEEC9 - Light green background */
-    --foreground: 0 0% 18%; /* #2F2F2F - Dark gray text */
+    --background: 0 0% 100%; /* Pure white background */
+    --foreground: 0 0% 0%; /* Pure black text */
 
-    --card: 70 20% 82%; /* #DDE7C7 - Light green for cards */
-    --card-foreground: 0 0% 18%; /* #2F2F2F - Dark gray text on cards */
+    --card: 0 0% 98%; /* Light gray for cards */
+    --card-foreground: 0 0% 0%; /* Black text on cards */
 
-    --popover: 70 20% 82%; /* #DDE7C7 - Light green */
-    --popover-foreground: 0 0% 18%; /* #2F2F2F - Dark gray text */
+    --popover: 0 0% 100%; /* White for popovers */
+    --popover-foreground: 0 0% 0%; /* Black text */
 
-    --primary: 161 28% 61%; /* #77BFA3 - Medium green for CTAs */
-    --primary-foreground: 0 0% 0%; /* Black text on primary buttons */
+    --primary: 220 100% 50%; /* Blue for CTAs */
+    --primary-foreground: 0 0% 100%; /* White text on primary buttons */
 
-    --secondary: 140 27% 69%; /* #98C9A3 - Light green for floating buttons */
+    --secondary: 210 40% 98%; /* Light blue-gray */
     --secondary-foreground: 0 0% 0%; /* Black text on secondary */
 
-    --muted: 70 20% 82%; /* #DDE7C7 - Light green */
-    --muted-foreground: 0 0% 35%; /* #5A5A5A - Medium gray for body text */
+    --muted: 210 40% 95%; /* Light gray */
+    --muted-foreground: 0 0% 45%; /* Dark gray for body text */
 
-    --accent: 140 27% 69%; /* #98C9A3 - Light green for accents */
+    --accent: 210 40% 98%; /* Light blue for accents */
     --accent-foreground: 0 0% 0%; /* Black text on accents */
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%; /* Red for destructive actions */
+    --destructive-foreground: 0 0% 98%; /* White text */
 
-    --border: 0 0% 27%; /* #444444 - Dark gray for borders */
-    --input: 70 20% 82%; /* #DDE7C7 - Light green for inputs */
-    --ring: 161 28% 61%; /* #77BFA3 - Medium green for focus rings */
+    --border: 214 32% 91%; /* Light gray borders */
+    --input: 214 32% 91%; /* Light gray inputs */
+    --ring: 220 100% 50%; /* Blue focus rings */
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
   }
 
   .dark {
-    --background: 140 15% 15%; /* Dark green background */
-    --foreground: 75 24% 85%; /* Light green text */
+    --background: 0 0% 3.9%; /* Very dark background */
+    --foreground: 0 0% 98%; /* Nearly white text */
 
-    --card: 140 20% 20%; /* Dark green for cards */
-    --card-foreground: 75 24% 85%; /* Light green text on cards */
+    --card: 0 0% 3.9%; /* Dark cards */
+    --card-foreground: 0 0% 98%; /* Light text on cards */
 
-    --popover: 140 20% 20%; /* Dark green */
-    --popover-foreground: 75 24% 85%; /* Light green text */
+    --popover: 0 0% 3.9%; /* Dark popovers */
+    --popover-foreground: 0 0% 98%; /* Light text */
 
-    --primary: 161 28% 61%; /* #77BFA3 - Medium green for CTAs */
-    --primary-foreground: 0 0% 0%; /* Black text on primary buttons */
+    --primary: 220 100% 50%; /* Blue for CTAs */
+    --primary-foreground: 0 0% 98%; /* Light text on primary */
 
-    --secondary: 140 27% 40%; /* Darker green for floating buttons */
-    --secondary-foreground: 75 24% 85%; /* Light green text */
+    --secondary: 215 27.9% 16.9%; /* Dark gray */
+    --secondary-foreground: 0 0% 98%; /* Light text */
 
-    --muted: 140 20% 25%; /* Darker green */
-    --muted-foreground: 0 0% 70%; /* Light gray for body text */
+    --muted: 215 27.9% 16.9%; /* Dark gray */
+    --muted-foreground: 215 20.2% 65.1%; /* Medium gray text */
 
-    --accent: 140 27% 40%; /* Darker green for accents */
-    --accent-foreground: 75 24% 85%; /* Light green text */
+    --accent: 215 27.9% 16.9%; /* Dark gray for accents */
+    --accent-foreground: 0 0% 98%; /* Light text */
 
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%; /* Dark red */
+    --destructive-foreground: 0 0% 98%; /* Light text */
 
-    --border: 0 0% 50%; /* Medium gray for borders */
-    --input: 140 20% 25%; /* Darker green for inputs */
-    --ring: 161 28% 61%; /* Medium green for focus rings */
+    --border: 215 27.9% 16.9%; /* Dark borders */
+    --input: 215 27.9% 16.9%; /* Dark inputs */
+    --ring: 220 100% 50%; /* Blue focus rings */
   }
 }
 

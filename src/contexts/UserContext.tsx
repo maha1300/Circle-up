@@ -23,6 +23,7 @@ export interface Post {
   category: string;
   likes: number;
   comments: number;
+  shares: number;
   time: string;
   location?: string;
   image?: string;

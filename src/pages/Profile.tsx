@@ -68,8 +68,8 @@ const Profile = () => {
           <Card className="mb-6 shadow-lg bg-card border-border">
             <CardContent className="pt-6">
               <div className="flex flex-col items-center text-center">
-                <Avatar className="h-20 w-20 mb-4 ring-4 ring-primary/20">
-                  <AvatarImage src={user.avatar} alt={user.name} />
+                <Avatar className="h-20 w-20 mb-4 ring-4 ring-border">
+                  <AvatarImage src={user.avatar.startsWith('http') ? user.avatar : undefined} alt={user.name} />
                   <AvatarFallback className="bg-primary text-primary-foreground text-lg font-bold">
                     {user.name.split(' ').map(n => n[0]).join('')}
                   </AvatarFallback>
@@ -116,10 +116,11 @@ const Profile = () => {
 
           {/* Tabs */}
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-4 mb-4 bg-card border border-border">
+            <TabsList className="grid w-full grid-cols-5 mb-4 bg-card border border-border">
               <TabsTrigger value="posts" className="text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Posts</TabsTrigger>
               <TabsTrigger value="communities" className="text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Communities</TabsTrigger>
               <TabsTrigger value="following" className="text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Following</TabsTrigger>
+              <TabsTrigger value="followers" className="text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Followers</TabsTrigger>
               <TabsTrigger value="settings" className="text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Settings</TabsTrigger>
             </TabsList>
 
@@ -184,13 +185,13 @@ const Profile = () => {
                 <Card key={person.id} className="shadow-md bg-card border-border">
                   <CardContent className="p-4">
                     <div className="flex items-center space-x-3">
-                      <Avatar className="h-12 w-12">
+                      <Avatar className="h-12 w-12 cursor-pointer" onClick={() => {/* Navigate to profile */}}>
                         <AvatarImage src={person.avatar} alt={person.name} />
                         <AvatarFallback className="bg-primary text-primary-foreground">
                           {person.name.split(' ').map(n => n[0]).join('')}
                         </AvatarFallback>
                       </Avatar>
-                      <div className="flex-1">
+                      <div className="flex-1 cursor-pointer" onClick={() => {/* Navigate to profile */}}>
                         <h3 className="font-semibold text-foreground">{person.name}</h3>
                         <p className="text-muted-foreground text-sm flex items-center">
                           <MapPin className="h-3 w-3 mr-1" />
@@ -205,6 +206,41 @@ const Profile = () => {
                       >
                         <UserMinus className="h-3 w-3 mr-1" />
                         Unfollow
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </TabsContent>
+
+            <TabsContent value="followers" className="space-y-4">
+              {/* Mock followers data */}
+              {[
+                { id: 1, name: "Alice Johnson", location: "Chennai", avatar: "https://images.unsplash.com/photo-1494790108755-2616b9fb0ce4?w=100&h=100&fit=crop&crop=face" },
+                { id: 2, name: "Bob Wilson", location: "Coimbatore", avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" }
+              ].map((follower) => (
+                <Card key={follower.id} className="shadow-md bg-card border-border">
+                  <CardContent className="p-4">
+                    <div className="flex items-center space-x-3">
+                      <Avatar className="h-12 w-12 cursor-pointer">
+                        <AvatarImage src={follower.avatar} alt={follower.name} />
+                        <AvatarFallback className="bg-primary text-primary-foreground">
+                          {follower.name.split(' ').map(n => n[0]).join('')}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="flex-1 cursor-pointer">
+                        <h3 className="font-semibold text-foreground">{follower.name}</h3>
+                        <p className="text-muted-foreground text-sm flex items-center">
+                          <MapPin className="h-3 w-3 mr-1" />
+                          {follower.location}
+                        </p>
+                      </div>
+                      <Button 
+                        variant="default" 
+                        size="sm" 
+                        className="bg-primary text-primary-foreground hover:bg-primary/90"
+                      >
+                        Following
                       </Button>
                     </div>
                   </CardContent>

@@ -4,13 +4,22 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import PostCard from "@/components/PostCard";
 import CategoryFilter from "@/components/CategoryFilter";
+import { useUser } from "@/contexts/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const { user } = useUser();
+  const navigate = useNavigate();
 
-  // Mock data for posts
-  const posts = [
+  const handleAuthorClick = (authorName: string) => {
+    // Navigate to profile page - in a real app, you'd pass the user ID
+    navigate('/profile');
+  };
+
+  // Mock data for posts + user's posts
+  const mockPosts = [
     {
       id: 1,
       author: {
@@ -75,9 +84,29 @@ const Home = () => {
     }
   ];
 
+  // Combine user posts with mock posts
+  const userPostsFormatted = user?.posts?.map(post => ({
+    id: post.id,
+    author: {
+      name: user.name,
+      avatar: user.avatar
+    },
+    content: post.content,
+    category: post.category,
+    timestamp: post.time,
+    location: post.location || user.location,
+    likes: post.likes,
+    comments: post.comments,
+    shares: 0,
+    isLiked: false,
+    image: post.image
+  })) || [];
+
+  const allPosts = [...userPostsFormatted, ...mockPosts];
+
   const filteredPosts = selectedCategory === "all" 
-    ? posts 
-    : posts.filter(post => post.category === selectedCategory);
+    ? allPosts 
+    : allPosts.filter(post => post.category === selectedCategory);
 
   const handleRefresh = () => {
     setIsRefreshing(true);
@@ -144,7 +173,7 @@ const Home = () => {
             </Card>
           ) : (
             filteredPosts.map((post) => (
-              <PostCard key={post.id} post={post} />
+              <PostCard key={post.id} post={post} onAuthorClick={handleAuthorClick} />
             ))
           )}
         </div>
