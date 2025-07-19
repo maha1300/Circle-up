@@ -37,6 +37,8 @@ interface UserContextType {
   isAuthenticated: boolean;
   login: (userData: UserData) => void;
   logout: () => void;
+  generateAvatarFromName: (name: string) => string;
+  getMockUsers: () => Array<{ id: string; name: string; avatar: string; bio: string; location: string; isFollowing: boolean; posts: number; followers: number; following: number; }>;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -101,6 +103,65 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.removeItem('isAuthenticated');
   };
 
+  const generateAvatarFromName = (name: string): string => {
+    const colors = ['#77bfa3', '#98c9a3', '#bfd8bd', '#dde7c7', '#edeec9'];
+    const initials = name.split(' ').map(n => n[0]).join('').toUpperCase();
+    const colorIndex = name.length % colors.length;
+    return `data:image/svg+xml,${encodeURIComponent(
+      `<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="50" fill="${colors[colorIndex]}"/>
+        <text x="50" y="60" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="white">${initials}</text>
+      </svg>`
+    )}`;
+  };
+
+  const getMockUsers = () => [
+    {
+      id: 'user_2',
+      name: 'Sarah Johnson',
+      avatar: generateAvatarFromName('Sarah Johnson'),
+      bio: 'Community organizer and environmental enthusiast',
+      location: 'Anna Nagar, Chennai',
+      isFollowing: false,
+      posts: 24,
+      followers: 156,
+      following: 89
+    },
+    {
+      id: 'user_3', 
+      name: 'Raj Patel',
+      avatar: generateAvatarFromName('Raj Patel'),
+      bio: 'Local business owner and tech enthusiast',
+      location: 'Trichy, Tamil Nadu',
+      isFollowing: true,
+      posts: 18,
+      followers: 203,
+      following: 67
+    },
+    {
+      id: 'user_4',
+      name: 'Priya Sharma',
+      avatar: generateAvatarFromName('Priya Sharma'),
+      bio: 'Teacher and community volunteer',
+      location: 'Thanjavur, Tamil Nadu',
+      isFollowing: false,
+      posts: 31,
+      followers: 278,
+      following: 134
+    },
+    {
+      id: 'user_5',
+      name: 'Kumar Raman',
+      avatar: generateAvatarFromName('Kumar Raman'),
+      bio: 'Government official and policy maker',
+      location: 'Coimbatore, Tamil Nadu',
+      isFollowing: true,
+      posts: 45,
+      followers: 892,
+      following: 234
+    }
+  ];
+
   return (
     <UserContext.Provider value={{
       user,
@@ -109,7 +170,9 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
       addPost,
       isAuthenticated,
       login,
-      logout
+      logout,
+      generateAvatarFromName,
+      getMockUsers
     }}>
       {children}
     </UserContext.Provider>

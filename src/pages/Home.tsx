@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const { user } = useUser();
+  const { user, generateAvatarFromName, getMockUsers } = useUser();
   const navigate = useNavigate();
 
   const handleAuthorClick = (authorName: string, authorId?: string) => {
@@ -23,19 +23,20 @@ const Home = () => {
     }
   };
 
-  // Mock data for posts + user's posts
+  // Get mock users and generate posts with proper avatars
+  const mockUsers = getMockUsers();
   const mockPosts = [
     {
       id: 1,
       author: {
-        id: "priya-sharma-123",
-        name: "Priya Sharma",
-        avatar: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=100&h=100&fit=crop&crop=face"
+        id: mockUsers[0].id,
+        name: mockUsers[0].name,
+        avatar: mockUsers[0].avatar
       },
       content: "🚨 Power cut scheduled in Anna Nagar from 10 AM to 2 PM today for maintenance work. Please plan accordingly!",
       category: "alert",
       timestamp: "2 hours ago",
-      location: "Anna Nagar, Chennai",
+      location: mockUsers[0].location,
       likes: 23,
       comments: 5,
       shares: 12,
@@ -44,14 +45,14 @@ const Home = () => {
     {
       id: 2,
       author: {
-        id: "raj-kumar-456",
-        name: "Raj Kumar",
-        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
+        id: mockUsers[1].id,
+        name: mockUsers[1].name,
+        avatar: mockUsers[1].avatar
       },
       content: "🎉 Community temple festival this Saturday! Everyone is invited to join the celebrations. Food stalls and cultural programs starting at 6 PM.",
       category: "event",
       timestamp: "4 hours ago",
-      location: "Thanjavur",
+      location: mockUsers[1].location,
       likes: 47,
       comments: 12,
       shares: 8,
@@ -63,7 +64,7 @@ const Home = () => {
       author: {
         id: "tn-govt-official",
         name: "Tamil Nadu Govt",
-        avatar: "🏛️",
+        avatar: generateAvatarFromName("Tamil Nadu Govt"),
         isOfficial: true
       },
       content: "📢 New subsidy scheme for solar panels launched! Apply online before March 31st. Up to ₹50,000 subsidy available for residential installations.",
@@ -78,14 +79,14 @@ const Home = () => {
     {
       id: 4,
       author: {
-        id: "dr-lakshmi-789",
-        name: "Dr. Lakshmi",
-        avatar: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=100&h=100&fit=crop&crop=face"
+        id: mockUsers[2].id,
+        name: mockUsers[2].name,
+        avatar: mockUsers[2].avatar
       },
       content: "🌦️ Heavy rain expected this weekend. Please avoid waterlogged areas and stay safe. Emergency helpline: 1077",
       category: "weather",
       timestamp: "8 hours ago",
-      location: "Trichy",
+      location: mockUsers[2].location,
       likes: 67,
       comments: 15,
       shares: 25,
@@ -99,7 +100,7 @@ const Home = () => {
     author: {
       id: user.id,
       name: user.name,
-      avatar: user.avatar
+      avatar: user.avatar || generateAvatarFromName(user.name)
     },
     content: post.content,
     category: post.category,

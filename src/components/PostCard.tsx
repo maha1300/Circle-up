@@ -8,6 +8,7 @@ import { Heart, MessageCircle, Share, MapPin, Clock, Sparkles } from "lucide-rea
 import { toast } from "sonner";
 import CommentsModal from "./CommentsModal";
 import ShareModal from "./ShareModal";
+import { useUser } from "@/contexts/UserContext";
 
 interface Post {
   id: number;
@@ -35,6 +36,7 @@ interface PostCardProps {
 }
 
 const PostCard = ({ post, onPostClick, onAuthorClick }: PostCardProps) => {
+  const { generateAvatarFromName } = useUser();
   const [isLiked, setIsLiked] = useState(post.isLiked);
   const [likes, setLikes] = useState(post.likes);
   const [comments, setComments] = useState(post.comments);
@@ -118,19 +120,16 @@ const PostCard = ({ post, onPostClick, onAuthorClick }: PostCardProps) => {
           {/* Author Header */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-3">
-              <Avatar 
+               <Avatar 
                 className="w-12 h-12 ring-2 ring-border shadow-lg cursor-pointer hover:ring-primary transition-all" 
                 onClick={(e) => {
                   e.stopPropagation();
                   onAuthorClick?.(post.author.name);
                 }}
               >
-                <AvatarImage src={post.author.avatar.startsWith('http') ? post.author.avatar : undefined} />
+                <AvatarImage src={post.author.avatar.startsWith('http') ? post.author.avatar : post.author.avatar || generateAvatarFromName(post.author.name)} />
                 <AvatarFallback className="bg-primary text-primary-foreground font-bold text-sm">
-                  {post.author.avatar.startsWith('http') ? 
-                    post.author.name.split(' ').map(n => n[0]).join('') : 
-                    post.author.avatar
-                  }
+                  {post.author.name.split(' ').map(n => n[0]).join('').toUpperCase()}
                 </AvatarFallback>
               </Avatar>
               <div>

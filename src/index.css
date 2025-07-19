@@ -7,65 +7,66 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%; /* Pure white background */
-    --foreground: 0 0% 0%; /* Pure black text */
+    /* High contrast color palette inspired by #edeec9-dde7c7-bfd8bd-98c9a3-77bfa3 */
+    --background: 60 20% 95%; /* Light cream background #edeec9 */
+    --foreground: 0 0% 0%; /* Pure black text for maximum contrast */
 
-    --card: 0 0% 98%; /* Light gray for cards */
+    --card: 0 0% 100%; /* Pure white for cards */
     --card-foreground: 0 0% 0%; /* Black text on cards */
 
     --popover: 0 0% 100%; /* White for popovers */
     --popover-foreground: 0 0% 0%; /* Black text */
 
-    --primary: 220 100% 50%; /* Blue for CTAs */
+    --primary: 160 35% 45%; /* Teal green #77bfa3 */
     --primary-foreground: 0 0% 100%; /* White text on primary buttons */
 
-    --secondary: 210 40% 98%; /* Light blue-gray */
+    --secondary: 120 25% 75%; /* Light sage green #bfd8bd */
     --secondary-foreground: 0 0% 0%; /* Black text on secondary */
 
-    --muted: 210 40% 95%; /* Light gray */
-    --muted-foreground: 0 0% 45%; /* Dark gray for body text */
+    --muted: 80 20% 85%; /* Light green-gray #dde7c7 */
+    --muted-foreground: 0 0% 30%; /* Dark gray for body text */
 
-    --accent: 210 40% 98%; /* Light blue for accents */
-    --accent-foreground: 0 0% 0%; /* Black text on accents */
+    --accent: 140 30% 65%; /* Medium green #98c9a3 */
+    --accent-foreground: 0 0% 100%; /* White text on accents */
 
     --destructive: 0 84% 60%; /* Red for destructive actions */
     --destructive-foreground: 0 0% 98%; /* White text */
 
-    --border: 214 32% 91%; /* Light gray borders */
-    --input: 214 32% 91%; /* Light gray inputs */
-    --ring: 220 100% 50%; /* Blue focus rings */
+    --border: 80 20% 80%; /* Light gray-green borders */
+    --input: 60 25% 90%; /* Light cream inputs */
+    --ring: 160 35% 45%; /* Teal focus rings */
 
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 0 0% 3.9%; /* Very dark background */
+    --background: 0 0% 8%; /* Very dark background */
     --foreground: 0 0% 98%; /* Nearly white text */
 
-    --card: 0 0% 3.9%; /* Dark cards */
+    --card: 0 0% 12%; /* Dark cards */
     --card-foreground: 0 0% 98%; /* Light text on cards */
 
-    --popover: 0 0% 3.9%; /* Dark popovers */
+    --popover: 0 0% 12%; /* Dark popovers */
     --popover-foreground: 0 0% 98%; /* Light text */
 
-    --primary: 220 100% 50%; /* Blue for CTAs */
-    --primary-foreground: 0 0% 98%; /* Light text on primary */
+    --primary: 160 35% 55%; /* Lighter teal for dark mode */
+    --primary-foreground: 0 0% 0%; /* Black text on primary */
 
-    --secondary: 215 27.9% 16.9%; /* Dark gray */
+    --secondary: 120 15% 25%; /* Dark sage green */
     --secondary-foreground: 0 0% 98%; /* Light text */
 
-    --muted: 215 27.9% 16.9%; /* Dark gray */
-    --muted-foreground: 215 20.2% 65.1%; /* Medium gray text */
+    --muted: 80 10% 20%; /* Dark muted green */
+    --muted-foreground: 80 5% 70%; /* Medium gray text */
 
-    --accent: 215 27.9% 16.9%; /* Dark gray for accents */
+    --accent: 140 20% 35%; /* Dark accent green */
     --accent-foreground: 0 0% 98%; /* Light text */
 
-    --destructive: 0 62.8% 30.6%; /* Dark red */
+    --destructive: 0 62.8% 50%; /* Brighter red for dark mode */
     --destructive-foreground: 0 0% 98%; /* Light text */
 
-    --border: 215 27.9% 16.9%; /* Dark borders */
-    --input: 215 27.9% 16.9%; /* Dark inputs */
-    --ring: 220 100% 50%; /* Blue focus rings */
+    --border: 80 10% 25%; /* Dark borders */
+    --input: 80 10% 18%; /* Dark inputs */
+    --ring: 160 35% 55%; /* Teal focus rings */
   }
 }
 

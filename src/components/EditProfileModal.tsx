@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Camera, X, MapPin, User, FileText } from "lucide-react";
 import { toast } from "sonner";
+import { useUser } from "@/contexts/UserContext";
 
 interface EditProfileModalProps {
   isOpen: boolean;
@@ -22,9 +23,10 @@ interface EditProfileModalProps {
 }
 
 const EditProfileModal = ({ isOpen, onClose, currentProfile, onSave }: EditProfileModalProps) => {
-  const [name, setName] = useState(currentProfile.name);
-  const [location, setLocation] = useState(currentProfile.location);
-  const [bio, setBio] = useState(currentProfile.bio);
+  const { generateAvatarFromName } = useUser();
+  const [name, setName] = useState(currentProfile.name === 'Not added yet' ? '' : currentProfile.name);
+  const [location, setLocation] = useState(currentProfile.location === 'Not added yet' ? '' : currentProfile.location);
+  const [bio, setBio] = useState(currentProfile.bio === 'Not added yet' ? '' : currentProfile.bio);
   const [avatar, setAvatar] = useState(currentProfile.avatar);
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
 
@@ -41,11 +43,14 @@ const EditProfileModal = ({ isOpen, onClose, currentProfile, onSave }: EditProfi
   };
 
   const handleSave = () => {
+    const finalName = name.trim() || 'Anonymous User';
+    const finalAvatar = avatar || generateAvatarFromName(finalName);
+    
     const updatedProfile = {
-      name: name || 'Not added yet',
-      avatar,
-      location: location || 'Not added yet',
-      bio: bio || 'Not added yet'
+      name: finalName,
+      avatar: finalAvatar,
+      location: location.trim(),
+      bio: bio.trim()
     };
     
     onSave(updatedProfile);
@@ -68,9 +73,9 @@ const EditProfileModal = ({ isOpen, onClose, currentProfile, onSave }: EditProfi
           <div className="flex flex-col items-center space-y-4">
           <div className="relative">
             <Avatar className="h-20 w-20 ring-4 ring-primary/20">
-              <AvatarImage src={avatar} alt={name} />
+              <AvatarImage src={avatar || generateAvatarFromName(name || 'User')} alt={name || 'User'} />
               <AvatarFallback className="bg-primary text-primary-foreground text-lg font-bold">
-                {name.split(' ').map(n => n[0]).join('')}
+                {(name || 'U').split(' ').map(n => n[0]).join('').toUpperCase()}
               </AvatarFallback>
             </Avatar>
             <Button

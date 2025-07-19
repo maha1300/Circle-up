@@ -25,13 +25,14 @@ const Login = () => {
       setIsLoading(false);
       
       // Create user data for login (in real app, this would come from API)
+      const userName = email.split('@')[0].replace(/[._]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
       const userData = {
         id: '1',
-        name: email.split('@')[0], // Use email prefix as temporary name
+        name: userName,
         email: email,
-        location: 'Not added yet',
-        bio: 'Not added yet',
-        avatar: `https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop&crop=face`,
+        location: '',
+        bio: '',
+        avatar: '', // Will be generated from name if empty
         joinedDate: 'Joined ' + new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
         posts: [],
         stats: {
