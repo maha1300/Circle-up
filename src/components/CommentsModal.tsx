@@ -19,9 +19,10 @@ interface CommentsModalProps {
   isOpen: boolean;
   onClose: () => void;
   postId: number;
+  onCommentAdded?: () => void;
 }
 
-const CommentsModal = ({ isOpen, onClose, postId }: CommentsModalProps) => {
+const CommentsModal = ({ isOpen, onClose, postId, onCommentAdded }: CommentsModalProps) => {
   const [newComment, setNewComment] = useState('');
   const [comments, setComments] = useState<Comment[]>([
     {
@@ -53,6 +54,7 @@ const CommentsModal = ({ isOpen, onClose, postId }: CommentsModalProps) => {
 
     setComments([...comments, comment]);
     setNewComment('');
+    onCommentAdded?.();
     toast.success("Comment added!");
   };
 

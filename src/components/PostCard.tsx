@@ -12,6 +12,7 @@ import ShareModal from "./ShareModal";
 interface Post {
   id: number;
   author: {
+    id?: string;
     name: string;
     avatar: string;
     isOfficial?: boolean;
@@ -36,6 +37,8 @@ interface PostCardProps {
 const PostCard = ({ post, onPostClick, onAuthorClick }: PostCardProps) => {
   const [isLiked, setIsLiked] = useState(post.isLiked);
   const [likes, setLikes] = useState(post.likes);
+  const [comments, setComments] = useState(post.comments);
+  const [shares, setShares] = useState(post.shares);
   const [showComments, setShowComments] = useState(false);
   const [showShare, setShowShare] = useState(false);
 
@@ -80,18 +83,26 @@ const PostCard = ({ post, onPostClick, onAuthorClick }: PostCardProps) => {
       textColor: "text-muted-foreground"
     };
 
-  const handleLike = () => {
+  const handleLike = (e: React.MouseEvent) => {
+    e.stopPropagation();
     setIsLiked(!isLiked);
     setLikes(prev => isLiked ? prev - 1 : prev + 1);
     toast.success(isLiked ? "💔 Removed from favorites" : "❤️ Added to favorites");
   };
 
-  const handleComment = () => {
+  const handleComment = (e: React.MouseEvent) => {
+    e.stopPropagation();
     setShowComments(true);
   };
 
-  const handleShare = () => {
+  const handleShare = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setShares(prev => prev + 1);
     setShowShare(true);
+  };
+
+  const handleCommentAdded = () => {
+    setComments(prev => prev + 1);
   };
 
   const handlePostClick = () => {
@@ -179,10 +190,7 @@ const PostCard = ({ post, onPostClick, onAuthorClick }: PostCardProps) => {
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleLike();
-                }}
+                onClick={handleLike}
                 className={`flex items-center space-x-2 transition-all duration-300 ${
                   isLiked 
                     ? 'text-destructive hover:bg-destructive/10' 
@@ -201,27 +209,21 @@ const PostCard = ({ post, onPostClick, onAuthorClick }: PostCardProps) => {
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleComment();
-                }}
+                onClick={handleComment}
                 className="flex items-center space-x-2 text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all duration-300"
               >
                 <MessageCircle size={18} />
-                <span className="font-bold">{post.comments}</span>
+                <span className="font-bold">{comments}</span>
               </Button>
 
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleShare();
-                }}
+                onClick={handleShare}
                 className="flex items-center space-x-2 text-muted-foreground hover:bg-accent/10 hover:text-accent transition-all duration-300"
               >
                 <Share size={18} />
-                <span className="font-bold">{post.shares}</span>
+                <span className="font-bold">{shares}</span>
               </Button>
             </div>
           </div>
@@ -231,7 +233,8 @@ const PostCard = ({ post, onPostClick, onAuthorClick }: PostCardProps) => {
       <CommentsModal 
         isOpen={showComments} 
         onClose={() => setShowComments(false)} 
-        postId={post.id} 
+        postId={post.id}
+        onCommentAdded={handleCommentAdded}
       />
       
       <ShareModal 

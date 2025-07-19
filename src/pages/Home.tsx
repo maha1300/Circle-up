@@ -13,9 +13,14 @@ const Home = () => {
   const { user } = useUser();
   const navigate = useNavigate();
 
-  const handleAuthorClick = (authorName: string) => {
-    // Navigate to profile page - in a real app, you'd pass the user ID
-    navigate('/profile');
+  const handleAuthorClick = (authorName: string, authorId?: string) => {
+    // Navigate to the author's profile page
+    if (authorId && authorId !== user?.id) {
+      // Navigate to other user's profile - in a real app, this would be dynamic
+      navigate(`/profile/${authorId}`);
+    } else {
+      navigate('/profile');
+    }
   };
 
   // Mock data for posts + user's posts
@@ -23,6 +28,7 @@ const Home = () => {
     {
       id: 1,
       author: {
+        id: "priya-sharma-123",
         name: "Priya Sharma",
         avatar: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=100&h=100&fit=crop&crop=face"
       },
@@ -38,6 +44,7 @@ const Home = () => {
     {
       id: 2,
       author: {
+        id: "raj-kumar-456",
         name: "Raj Kumar",
         avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
       },
@@ -54,6 +61,7 @@ const Home = () => {
     {
       id: 3,
       author: {
+        id: "tn-govt-official",
         name: "Tamil Nadu Govt",
         avatar: "🏛️",
         isOfficial: true
@@ -70,6 +78,7 @@ const Home = () => {
     {
       id: 4,
       author: {
+        id: "dr-lakshmi-789",
         name: "Dr. Lakshmi",
         avatar: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=100&h=100&fit=crop&crop=face"
       },
@@ -88,6 +97,7 @@ const Home = () => {
   const userPostsFormatted = user?.posts?.map(post => ({
     id: post.id,
     author: {
+      id: user.id,
       name: user.name,
       avatar: user.avatar
     },
@@ -173,7 +183,11 @@ const Home = () => {
             </Card>
           ) : (
             filteredPosts.map((post) => (
-              <PostCard key={post.id} post={post} onAuthorClick={handleAuthorClick} />
+              <PostCard 
+                key={post.id} 
+                post={post} 
+                onAuthorClick={(authorName) => handleAuthorClick(authorName, post.author.id)} 
+              />
             ))
           )}
         </div>

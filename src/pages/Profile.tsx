@@ -160,7 +160,11 @@ const Profile = () => {
 
             <TabsContent value="communities" className="space-y-4">
               {joinedCommunities.map((community) => (
-                <Card key={community.id} className="shadow-md bg-card border-border">
+                <Card 
+                  key={community.id} 
+                  className="shadow-md bg-card border-border cursor-pointer hover:shadow-lg transition-shadow"
+                  onClick={() => window.location.href = `/community/${community.id}`}
+                >
                   <CardContent className="p-4">
                     <div className="flex justify-between items-start">
                       <div>
@@ -185,13 +189,19 @@ const Profile = () => {
                 <Card key={person.id} className="shadow-md bg-card border-border">
                   <CardContent className="p-4">
                     <div className="flex items-center space-x-3">
-                      <Avatar className="h-12 w-12 cursor-pointer" onClick={() => {/* Navigate to profile */}}>
+                      <Avatar 
+                        className="h-12 w-12 cursor-pointer" 
+                        onClick={() => window.location.href = `/profile/${person.id}`}
+                      >
                         <AvatarImage src={person.avatar} alt={person.name} />
                         <AvatarFallback className="bg-primary text-primary-foreground">
                           {person.name.split(' ').map(n => n[0]).join('')}
                         </AvatarFallback>
                       </Avatar>
-                      <div className="flex-1 cursor-pointer" onClick={() => {/* Navigate to profile */}}>
+                      <div 
+                        className="flex-1 cursor-pointer" 
+                        onClick={() => window.location.href = `/profile/${person.id}`}
+                      >
                         <h3 className="font-semibold text-foreground">{person.name}</h3>
                         <p className="text-muted-foreground text-sm flex items-center">
                           <MapPin className="h-3 w-3 mr-1" />
@@ -222,13 +232,19 @@ const Profile = () => {
                 <Card key={follower.id} className="shadow-md bg-card border-border">
                   <CardContent className="p-4">
                     <div className="flex items-center space-x-3">
-                      <Avatar className="h-12 w-12 cursor-pointer">
+                      <Avatar 
+                        className="h-12 w-12 cursor-pointer"
+                        onClick={() => window.location.href = `/profile/${follower.id}`}
+                      >
                         <AvatarImage src={follower.avatar} alt={follower.name} />
                         <AvatarFallback className="bg-primary text-primary-foreground">
                           {follower.name.split(' ').map(n => n[0]).join('')}
                         </AvatarFallback>
                       </Avatar>
-                      <div className="flex-1 cursor-pointer">
+                      <div 
+                        className="flex-1 cursor-pointer"
+                        onClick={() => window.location.href = `/profile/${follower.id}`}
+                      >
                         <h3 className="font-semibold text-foreground">{follower.name}</h3>
                         <p className="text-muted-foreground text-sm flex items-center">
                           <MapPin className="h-3 w-3 mr-1" />

@@ -64,8 +64,30 @@ const Notifications = () => {
     earlier: notifications.filter(n => n.time.includes('days ago'))
   };
 
+  const handleNotificationClick = (notification: any) => {
+    // Navigate based on notification type
+    switch (notification.type) {
+      case 'comment':
+        // Navigate to the post with comments
+        window.location.href = `/post/${notification.id}`;
+        break;
+      case 'alert':
+      case 'event':
+      case 'scheme':
+      case 'weather':
+        // Navigate to relevant page or show details
+        window.location.href = `/`;
+        break;
+      default:
+        break;
+    }
+  };
+
   const NotificationItem = ({ notification }: { notification: any }) => (
-    <Card className={`mb-3 border-l-4 ${notification.unread ? 'border-l-primary shadow-md' : 'border-l-border'} hover:shadow-lg transition-shadow duration-200 cursor-pointer bg-card border-border`}>
+    <Card 
+      onClick={() => handleNotificationClick(notification)}
+      className={`mb-3 border-l-4 ${notification.unread ? 'border-l-primary shadow-md' : 'border-l-border'} hover:shadow-lg transition-shadow duration-200 cursor-pointer bg-card border-border`}
+    >
       <CardContent className="p-4">
         <div className="flex items-start space-x-3">
           <div className="p-2 rounded-full bg-muted text-lg">

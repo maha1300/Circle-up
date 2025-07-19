@@ -14,6 +14,7 @@ import Communities from "./pages/Communities";
 import CreatePost from "./pages/CreatePost";
 import Notifications from "./pages/Notifications";
 import Profile from "./pages/Profile";
+import UserProfile from "./pages/UserProfile";
 import Search from "./pages/Search";
 import CommunityDetail from "./pages/CommunityDetail";
 import NotFound from "./pages/NotFound";
@@ -50,6 +51,7 @@ const AppContent = () => {
         <Route path="create-post" element={<CreatePost />} />
         <Route path="notifications" element={<Notifications />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="profile/:userId" element={<UserProfile />} />
         <Route path="search" element={<Search />} />
       </Route>
       <Route path="*" element={<NotFound />} />
